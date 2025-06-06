@@ -6,17 +6,19 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private LayerMask stageLayer;
     [SerializeField] private GameObject shockWave;
     [SerializeField] private Transform attackCircle;
+    [SerializeField] private Animator _animation;
     public SceneLoader _sceneLoder;
     private Rigidbody2D rb;
-    private float speed = 7.0f;
+    private float speed = 1.0f;
+    private float BACE_SPEED;
     private Vector2 _direction;
     private Vector2 _directionReserve;
-    //‰Á‘¬—p
+    //?¿½?¿½?¿½?¿½?¿½p
     private float xSpeed = 1.0f;
     private float ySpeed = 1.0f;
-    //‹È‚ª‚Á‚½‰ñ”‚ğƒJƒEƒ“ƒg—p
+    //?¿½È‚ï¿½?¿½?¿½?¿½?¿½?¿½?”‚?¿½?¿½J?¿½E?¿½?¿½?¿½g?¿½p
     private int counter = 0;
-    //‹È‚ª‚éˆ—‚É¸”s‚µ‚½
+    //?¿½È‚ï¿½?¿½éˆï¿½?¿½?¿½Éï¿½?¿½s?¿½?¿½?¿½?¿½?¿½?¿½
     private bool isHitWall = false;
 
     private bool hori = false;
@@ -28,44 +30,68 @@ public class PlayerMover : MonoBehaviour
     }
     private void Update()
     {
-        
+
     }
     private void FixedUpdate()
     {
         if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
         {
-            //¶A‰E
+            //?¿½?¿½?¿½A?¿½E
             _directionReserve.x = Input.GetAxisRaw("Horizontal");
-            //ãA‰º
+            //?¿½?¿½A?¿½?¿½
             _directionReserve.y = Input.GetAxisRaw("Vertical");
         }
         if (_directionReserve != Vector2.zero)
         {
             CheckDirection(_directionReserve);
         }
-        //ÕŒ‚”g‚Ì”ÍˆÍ‚ğ‘¬“x‚É‰‚¶‚ÄŠg‘å
+        //?¿½ÕŒï¿½?¿½g?¿½Ì”ÍˆÍ‚ğ‘¬“x?¿½É‰ï¿½?¿½?¿½?¿½ÄŠg?¿½?¿½
         attackCircle.localScale = Vector3.one * (1.0f + speed / 3.0f);
         Vector2 dist = _direction * speed * Time.fixedDeltaTime;
         rb.MovePosition(rb.position + dist);
+    }
+    /// <summary>
+    /// Sent when another object enters a trigger collider attached to this
+    /// object (2D physics only).
+    /// </summary>
+    /// <param name="other">The other Collider2D involved in this collision.</param>
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Block")
+        {
+            
+            var colliderVec = other.transform.position - transform.position;
+
+            if (Mathf.Abs(colliderVec.x - _direction.x) < 0.3f && Mathf.Abs(colliderVec.y - _direction.y) < 0.3f)
+            {
+                //
+                Debug.Log("Hit");
+                Debug.Log($"colliderVec{colliderVec},_direction{_direction}");
+                Debug.Log("Map Hit");
+                if (speed >= 15.0f)
+                {
+                    shockWave.SetActive(true);
+                    Debug.Log("Atack!");
+                    StartCoroutine("WaitTime");
+                }
+                
+                Debug.Log("SpeedReset");
+            }
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Map")
         {
-            //•ÇÚG
-            Debug.Log("Map Hit");
-            if (speed >= 12.0f)
-            {
-                shockWave.SetActive(true);
-                Debug.Log("Atack!");
-            }
-            CountTime();
-            StartCoroutine("WaitTime");
+            //?¿½ÇÚG?¿½?¿½
+
+            // CountTime();
+
         }
         if (collision.gameObject.tag == "Enemy")
         {
-            //“G”í’e
+            //?¿½G?¿½?¿½e?¿½?¿½
             Debug.Log("Enemy Hit");
             Debug.Log("End2");
         }
@@ -74,8 +100,10 @@ public class PlayerMover : MonoBehaviour
 
     IEnumerator WaitTime()
     {
-        //ÕŒ‚”g‘±
-        yield return new WaitForSeconds(1);
+        //?¿½ÕŒï¿½?¿½g?¿½?¿½?¿½?¿½
+        
+        yield return new WaitForSeconds(0.5f);
+        StartCoroutine("ShockCool");
         shockWave.SetActive(false);
         Debug.Log("End");
     }
@@ -88,11 +116,16 @@ public class PlayerMover : MonoBehaviour
             _directionReserve = Vector2.zero;
             if ((direction.x == 0 && direction.y == 0) == false)
             {
-                if(_direction != direction)
+                if (_direction != direction)
                 {
-                    speed += 0.2f;
-                    //‰Á‘¬
+                    speed *= 1.15f;
+                    //?¿½?¿½?¿½?¿½
                     Debug.Log("kasoku");
+                    if (speed >= 50f)
+                    {
+                        speed = 50f;
+                    }
+                    Debug.Log(speed);
                 }
             }
             _direction = direction;
@@ -111,6 +144,12 @@ public class PlayerMover : MonoBehaviour
             Debug.Log("SpeedReset");
         }
         _time = 0;
+    }
+    IEnumerator ShockCool()
+    {
+        speed = 0;
+        yield return new WaitForSeconds(0.5f);
+        speed = 1.0f;
     }
 
 }
