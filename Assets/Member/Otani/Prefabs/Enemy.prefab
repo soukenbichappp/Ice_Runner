@@ -118,9 +118,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.0777345}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.28456435
 --- !u!114 &1744002053787592834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,3 +134,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sceneLoader: {fileID: 1023391420162735252, guid: 7dfc1ca42803c694eb8938d491e91740, type: 3}
+  _enemySpeed: 7
+  _target: {fileID: 0}
