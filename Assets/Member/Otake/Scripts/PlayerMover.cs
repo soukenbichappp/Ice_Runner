@@ -147,7 +147,6 @@ public class PlayerMover : MonoBehaviour
     }
     IEnumerator ShockCool()
     {
-        speed = 0;
         yield return new WaitForSeconds(0.3f);
         speed = 1.0f;
     }
