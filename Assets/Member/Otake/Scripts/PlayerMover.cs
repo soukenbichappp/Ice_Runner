@@ -13,12 +13,12 @@ public class PlayerMover : MonoBehaviour
     private float BACE_SPEED;
     private Vector2 _direction;
     private Vector2 _directionReserve;
-    //?¿½?¿½?¿½?¿½?¿½p
+    //?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½p
     private float xSpeed = 1.0f;
     private float ySpeed = 1.0f;
-    //?¿½È‚ï¿½?¿½?¿½?¿½?¿½?¿½?”‚?¿½?¿½J?¿½E?¿½?¿½?¿½g?¿½p
+    //?ï¿½ï¿½È‚ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½J?ï¿½ï¿½E?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½g?ï¿½ï¿½p
     private int counter = 0;
-    //?¿½È‚ï¿½?¿½éˆï¿½?¿½?¿½ÉŽï¿½?¿½s?¿½?¿½?¿½?¿½?¿½?¿½
+    //?ï¿½ï¿½È‚ï¿½?ï¿½ï¿½éˆï¿½?ï¿½ï¿½?ï¿½ï¿½ÉŽï¿½?ï¿½ï¿½s?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½
     private bool isHitWall = false;
 
     private bool hori = false;
@@ -36,16 +36,16 @@ public class PlayerMover : MonoBehaviour
     {
         if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
         {
-            //?¿½?¿½?¿½A?¿½E
+            //?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½A?ï¿½ï¿½E
             _directionReserve.x = Input.GetAxisRaw("Horizontal");
-            //?¿½?¿½A?¿½?¿½
+            //?ï¿½ï¿½?ï¿½ï¿½A?ï¿½ï¿½?ï¿½ï¿½
             _directionReserve.y = Input.GetAxisRaw("Vertical");
         }
         if (_directionReserve != Vector2.zero)
         {
             CheckDirection(_directionReserve);
         }
-        //?¿½ÕŒï¿½?¿½g?¿½Ì”ÍˆÍ‚ð‘¬“x?¿½É‰ï¿½?¿½?¿½?¿½ÄŠg?¿½?¿½
+        //?ï¿½ï¿½ÕŒï¿½?ï¿½ï¿½g?ï¿½ï¿½Ì”ÍˆÍ‚ð‘¬“x?ï¿½ï¿½É‰ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ÄŠg?ï¿½ï¿½?ï¿½ï¿½
         attackCircle.localScale = Vector3.one * (1.0f + speed / 3.0f);
         Vector2 dist = _direction * speed * Time.fixedDeltaTime;
         rb.MovePosition(rb.position + dist);
@@ -84,14 +84,14 @@ public class PlayerMover : MonoBehaviour
     {
         if (collision.gameObject.tag == "Map")
         {
-            //?¿½ÇÚG?¿½?¿½
+            //?ï¿½ï¿½ÇÚG?ï¿½ï¿½?ï¿½ï¿½
 
             // CountTime();
 
         }
         if (collision.gameObject.tag == "Enemy")
         {
-            //?¿½G?¿½?¿½e?¿½?¿½
+            //?ï¿½ï¿½G?ï¿½ï¿½?ï¿½ï¿½e?ï¿½ï¿½?ï¿½ï¿½
             Debug.Log("Enemy Hit");
             Debug.Log("End2");
         }
@@ -100,7 +100,7 @@ public class PlayerMover : MonoBehaviour
 
     IEnumerator WaitTime()
     {
-        //?¿½ÕŒï¿½?¿½g?¿½?¿½?¿½?¿½
+        //?ï¿½ï¿½ÕŒï¿½?ï¿½ï¿½g?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½
         
         yield return new WaitForSeconds(0.5f);
         StartCoroutine("ShockCool");
@@ -119,7 +119,7 @@ public class PlayerMover : MonoBehaviour
                 if (_direction != direction)
                 {
                     speed *= 1.15f;
-                    //?¿½?¿½?¿½?¿½
+                    //?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½
                     Debug.Log("kasoku");
                     if (speed >= 50f)
                     {
@@ -148,7 +148,7 @@ public class PlayerMover : MonoBehaviour
     IEnumerator ShockCool()
     {
         speed = 0;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.3f);
         speed = 1.0f;
     }
 
