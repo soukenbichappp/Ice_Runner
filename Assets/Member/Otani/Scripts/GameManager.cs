@@ -6,7 +6,7 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    //[SerializeField] Player player; ƒvƒŒƒCƒ„[‚ªŠ®¬‚µ‚½‚ç’Ç‰Á
+    //[SerializeField] Player player; ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç‰ï¿½
     [SerializeField] private TextMeshProUGUI _scoreText;
     [SerializeField] private GameObject _pauseButton;
     [SerializeField] private GameObject _playBackButton;
@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        // ƒVƒ“ƒOƒ‹ƒgƒ“
+        // ï¿½Vï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½gï¿½ï¿½
         if (instance == null)
         {
             instance = this;
@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //“G‚Æ“–‚½‚Á‚½‚Ìˆ—
+        //ï¿½Gï¿½Æ“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½
         //if (player.isHit == true)
         //{
         //    GameOver();
@@ -47,8 +47,8 @@ public class GameManager : MonoBehaviour
 
     void GameOver()
     {
-        // GameOverˆ—
-        // GameOverƒAƒjƒ[ƒVƒ‡ƒ“‚ğ‚±‚±‚É“ü‚ê‚é
+        // GameOverï¿½ï¿½ï¿½ï¿½
+        // GameOverï¿½Aï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É“ï¿½ï¿½ï¿½ï¿½
         SceneManager.LoadScene("");
     }
 
@@ -64,13 +64,13 @@ public class GameManager : MonoBehaviour
 
     public void AddScore(int _scoreAmount)
     {
-        // ‰ÁZ‚·‚éƒXƒRƒA‚ğæ“¾‚µ‚Ä‰ÁZ
+        // ï¿½ï¿½ï¿½Zï¿½ï¿½ï¿½ï¿½Xï¿½Rï¿½Aï¿½ï¿½æ“¾ï¿½ï¿½ï¿½Ä‰ï¿½ï¿½Z
         _score += _scoreAmount;
         if(_scoreText == null)
         {
             _scoreText = GameObject.Find("Canvas/ScoreText").GetComponent<TextMeshProUGUI>();
         }
-        // ƒXƒRƒAƒeƒLƒXƒg‚ğXV
+        // ï¿½Xï¿½Rï¿½Aï¿½eï¿½Lï¿½Xï¿½gï¿½ï¿½Xï¿½V
         _scoreText.text = $"Score : {_score}";
     }
 

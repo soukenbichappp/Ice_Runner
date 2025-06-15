@@ -3,13 +3,18 @@ using UnityEngine;
 
 public class PlayerMover : MonoBehaviour
 {
+    SpriteRenderer MainSpriteRenderer;
     [SerializeField] private LayerMask stageLayer;
     [SerializeField] private GameObject shockWave;
     [SerializeField] private Transform attackCircle;
     [SerializeField] private Animator _animation;
+    [SerializeField] private Sprite rightSprite;
+    [SerializeField] private Sprite leftSprite;
+    [SerializeField] private Sprite upSprite;
+    [SerializeField] private Sprite downSprite;
     public SceneLoader _sceneLoder;
     private Rigidbody2D rb;
-    private float speed = 1.0f;
+    private float speed = 1.5f;
     private float BACE_SPEED;
     private Vector2 _direction;
     private Vector2 _directionReserve;
@@ -26,6 +31,7 @@ public class PlayerMover : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        MainSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         shockWave.SetActive(false);
     }
     private void Update()
@@ -40,13 +46,30 @@ public class PlayerMover : MonoBehaviour
             _directionReserve.x = Input.GetAxisRaw("Horizontal");
             //?��?��A?��?��
             _directionReserve.y = Input.GetAxisRaw("Vertical");
+            if(_direction.x == 1)
+            {
+                MainSpriteRenderer.sprite = rightSprite;
+            }
+            else if(_direction.x == -1)
+            {
+                MainSpriteRenderer.sprite = leftSprite;
+            }
+            else if(_direction.y == 1)
+            {
+                MainSpriteRenderer.sprite = upSprite;
+            }
+            else if (_direction.y == -1)
+            {
+                MainSpriteRenderer.sprite = downSprite;
+            }
+
         }
         if (_directionReserve != Vector2.zero)
         {
             CheckDirection(_directionReserve);
         }
         //?��Ռ�?��g?��͈̔͂𑬓x?��ɉ�?��?��?��Ċg?��?��
-        attackCircle.localScale = Vector3.one * (1.0f + speed / 3.0f);
+        attackCircle.localScale = Vector3.one * (1.0f + speed / 10.0f);
         Vector2 dist = _direction * speed * Time.fixedDeltaTime;
         rb.MovePosition(rb.position + dist);
     }
@@ -68,13 +91,13 @@ public class PlayerMover : MonoBehaviour
                 Debug.Log("Hit");
                 Debug.Log($"colliderVec{colliderVec},_direction{_direction}");
                 Debug.Log("Map Hit");
-                if (speed >= 15.0f)
+                if (speed >= 8.0f)
                 {
                     shockWave.SetActive(true);
                     Debug.Log("Atack!");
                     StartCoroutine("WaitTime");
                 }
-                
+                speed = 1.5f;
                 Debug.Log("SpeedReset");
             }
         }
@@ -102,7 +125,7 @@ public class PlayerMover : MonoBehaviour
     {
         //?��Ռ�?��g?��?��?��?��
         
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         StartCoroutine("ShockCool");
         shockWave.SetActive(false);
         Debug.Log("End");
@@ -147,8 +170,9 @@ public class PlayerMover : MonoBehaviour
     }
     IEnumerator ShockCool()
     {
-        yield return new WaitForSeconds(0.3f);
-        speed = 1.0f;
+        speed = 0;
+        yield return new WaitForSeconds(0.1f);
+        speed = 1.5f;
     }
 
 }
