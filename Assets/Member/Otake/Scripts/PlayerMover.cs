@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-
+using Cinemachine;
 public class PlayerMover : MonoBehaviour
 {
     SpriteRenderer MainSpriteRenderer;
@@ -37,6 +37,33 @@ public class PlayerMover : MonoBehaviour
     private void Update()
     {
 
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Block")
+        {
+
+            var colliderVec = other.transform.position - transform.position;
+
+            if (Mathf.Abs(colliderVec.x - _direction.x) < 0.3f && Mathf.Abs(colliderVec.y - _direction.y) < 0.3f)
+            {
+                //
+                Debug.Log("Hit");
+                Debug.Log($"colliderVec{colliderVec},_direction{_direction}");
+                Debug.Log("Map Hit");
+                if (speed >= 8.0f)
+                {
+                    shockWave.SetActive(true);
+                    Debug.Log("Atack!");
+                    var impulseSouse = GetComponent<CinemachineImpulseSource>();
+                    impulseSouse.GenerateImpulse();
+                    StartCoroutine("WaitTime");
+                }
+                speed = 1.5f;
+                Debug.Log("SpeedReset");
+            }
+        }
     }
     private void FixedUpdate()
     {
@@ -78,30 +105,7 @@ public class PlayerMover : MonoBehaviour
     /// object (2D physics only).
     /// </summary>
     /// <param name="other">The other Collider2D involved in this collision.</param>
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "Block")
-        {
-            
-            var colliderVec = other.transform.position - transform.position;
-
-            if (Mathf.Abs(colliderVec.x - _direction.x) < 0.3f && Mathf.Abs(colliderVec.y - _direction.y) < 0.3f)
-            {
-                //
-                Debug.Log("Hit");
-                Debug.Log($"colliderVec{colliderVec},_direction{_direction}");
-                Debug.Log("Map Hit");
-                if (speed >= 8.0f)
-                {
-                    shockWave.SetActive(true);
-                    Debug.Log("Atack!");
-                    StartCoroutine("WaitTime");
-                }
-                speed = 1.5f;
-                Debug.Log("SpeedReset");
-            }
-        }
-    }
+   
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -171,7 +175,7 @@ public class PlayerMover : MonoBehaviour
     IEnumerator ShockCool()
     {
         speed = 0;
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.4f);
         speed = 1.5f;
     }
 
