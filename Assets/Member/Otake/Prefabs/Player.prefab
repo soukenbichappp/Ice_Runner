@@ -373,6 +373,10 @@ MonoBehaviour:
   shockWave: {fileID: 2996686176079992229}
   attackCircle: {fileID: 3857100873691240575}
   _animation: {fileID: 0}
+  rightSprite: {fileID: 0}
+  leftSprite: {fileID: 0}
+  upSprite: {fileID: 0}
+  downSprite: {fileID: 0}
   _sceneLoder: {fileID: 0}
 --- !u!50 &5655865901351104051
 Rigidbody2D:
