@@ -6,6 +6,7 @@ public class PlayerMover : MonoBehaviour
     SpriteRenderer MainSpriteRenderer;
     [SerializeField] private LayerMask stageLayer;
     [SerializeField] private GameObject shockWave;
+    [SerializeField] private GameObject shockChage;
     [SerializeField] private Transform attackCircle;
     [SerializeField] private Animator _animation;
     [SerializeField] private Sprite rightSprite;
@@ -24,6 +25,7 @@ public class PlayerMover : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         MainSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         shockWave.SetActive(false);
+        shockChage.SetActive(false);
     }
     private void Update()
     {
@@ -41,44 +43,52 @@ public class PlayerMover : MonoBehaviour
             {
                 if(speed >= 8.0f)
                 {
-
+                    MainSpriteRenderer.sprite = rightSprite;
+                    shockChage.SetActive(true);
                 }
                 else
                 {
                     MainSpriteRenderer.sprite = rightSprite;
+                    shockChage.SetActive(false);
                 }
             }
             else if(_direction.x == -1)
             {
                 if (speed >= 8.0f)
                 {
-
+                    MainSpriteRenderer.sprite = leftSprite;
+                    shockChage.SetActive(true);
                 }
                 else
                 {
                     MainSpriteRenderer.sprite = leftSprite;
+                    shockChage.SetActive(false);
                 }
             }
             else if(_direction.y == 1)
             {
                 if (speed >= 8.0f)
                 {
-
+                    MainSpriteRenderer.sprite = upSprite;
+                    shockChage.SetActive(true);
                 }
                 else
                 {
                     MainSpriteRenderer.sprite = upSprite;
+                    shockChage.SetActive(false);
                 }
             }
             else if (_direction.y == -1)
             {
                 if (speed >= 8.0f)
                 {
-
+                    MainSpriteRenderer.sprite = downSprite;
+                    shockChage.SetActive(true);
                 }
                 else
                 {
                     MainSpriteRenderer.sprite = downSprite;
+                    shockChage.SetActive(false);
                 }
             }
         }
