@@ -97,7 +97,7 @@ public class PlayerMover : MonoBehaviour
             CheckDirection(_directionReserve);
         }
         //?��Ռ�?��g?��͈̔͂𑬓x?��ɉ�?��?��?��Ċg?��?��
-        attackCircle.localScale = Vector3.one * (1.5f + speed / 10.0f);
+        attackCircle.localScale = Vector3.one * (1.0f + speed / 10.0f);
         Vector2 dist = _direction * speed * Time.fixedDeltaTime;
         rb.MovePosition(rb.position + dist);
     }
