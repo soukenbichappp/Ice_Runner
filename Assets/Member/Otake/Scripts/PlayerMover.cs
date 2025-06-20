@@ -12,22 +12,13 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private Sprite leftSprite;
     [SerializeField] private Sprite upSprite;
     [SerializeField] private Sprite downSprite;
+    [SerializeField] private AudioSource shockAudio;
     public SceneLoader _sceneLoder;
     private Rigidbody2D rb;
     private float speed = 1.5f;
     private float BACE_SPEED;
     private Vector2 _direction;
     private Vector2 _directionReserve;
-    //?��?��?��?��?��p
-    private float xSpeed = 1.0f;
-    private float ySpeed = 1.0f;
-    //?��Ȃ�?��?��?��?��?��?��?��?��J?��E?��?��?��g?��p
-    private int counter = 0;
-    //?��Ȃ�?��鏈�?��?��Ɏ�?��s?��?��?��?��?��?��
-    private bool isHitWall = false;
-
-    private bool hori = false;
-    private bool vart = false;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -38,7 +29,73 @@ public class PlayerMover : MonoBehaviour
     {
 
     }
+    private void FixedUpdate()
+    {
+        if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
+        {
+            //?��?��?��A?��E
+            _directionReserve.x = Input.GetAxisRaw("Horizontal");
+            //?��?��A?��?��
+            _directionReserve.y = Input.GetAxisRaw("Vertical");
+            if(_direction.x == 1)
+            {
+                if(speed >= 8.0f)
+                {
 
+                }
+                else
+                {
+                    MainSpriteRenderer.sprite = rightSprite;
+                }
+            }
+            else if(_direction.x == -1)
+            {
+                if (speed >= 8.0f)
+                {
+
+                }
+                else
+                {
+                    MainSpriteRenderer.sprite = leftSprite;
+                }
+            }
+            else if(_direction.y == 1)
+            {
+                if (speed >= 8.0f)
+                {
+
+                }
+                else
+                {
+                    MainSpriteRenderer.sprite = upSprite;
+                }
+            }
+            else if (_direction.y == -1)
+            {
+                if (speed >= 8.0f)
+                {
+
+                }
+                else
+                {
+                    MainSpriteRenderer.sprite = downSprite;
+                }
+            }
+        }
+        if (_directionReserve != Vector2.zero)
+        {
+            CheckDirection(_directionReserve);
+        }
+        //?��Ռ�?��g?��͈̔͂𑬓x?��ɉ�?��?��?��Ċg?��?��
+        attackCircle.localScale = Vector3.one * (1.5f + speed / 10.0f);
+        Vector2 dist = _direction * speed * Time.fixedDeltaTime;
+        rb.MovePosition(rb.position + dist);
+    }
+    /// <summary>
+    /// Sent when another object enters a trigger collider attached to this
+    /// object (2D physics only).
+    /// </summary>
+    /// <param name="other">The other Collider2D involved in this collision.</param>
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Block")
@@ -58,6 +115,7 @@ public class PlayerMover : MonoBehaviour
                     Debug.Log("Atack!");
                     var impulseSouse = GetComponent<CinemachineImpulseSource>();
                     impulseSouse.GenerateImpulse();
+                    shockAudio.Play();
                     StartCoroutine("WaitTime");
                 }
                 speed = 1.5f;
@@ -65,48 +123,6 @@ public class PlayerMover : MonoBehaviour
             }
         }
     }
-    private void FixedUpdate()
-    {
-        if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
-        {
-            //?��?��?��A?��E
-            _directionReserve.x = Input.GetAxisRaw("Horizontal");
-            //?��?��A?��?��
-            _directionReserve.y = Input.GetAxisRaw("Vertical");
-            if(_direction.x == 1)
-            {
-                MainSpriteRenderer.sprite = rightSprite;
-            }
-            else if(_direction.x == -1)
-            {
-                MainSpriteRenderer.sprite = leftSprite;
-            }
-            else if(_direction.y == 1)
-            {
-                MainSpriteRenderer.sprite = upSprite;
-            }
-            else if (_direction.y == -1)
-            {
-                MainSpriteRenderer.sprite = downSprite;
-            }
-
-        }
-        if (_directionReserve != Vector2.zero)
-        {
-            CheckDirection(_directionReserve);
-        }
-        //?��Ռ�?��g?��͈̔͂𑬓x?��ɉ�?��?��?��Ċg?��?��
-        attackCircle.localScale = Vector3.one * (1.0f + speed / 10.0f);
-        Vector2 dist = _direction * speed * Time.fixedDeltaTime;
-        rb.MovePosition(rb.position + dist);
-    }
-    /// <summary>
-    /// Sent when another object enters a trigger collider attached to this
-    /// object (2D physics only).
-    /// </summary>
-    /// <param name="other">The other Collider2D involved in this collision.</param>
-   
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Map")
@@ -145,7 +161,7 @@ public class PlayerMover : MonoBehaviour
             {
                 if (_direction != direction)
                 {
-                    speed *= 1.15f;
+                    speed *= 1.18f;
                     //?��?��?��?��
                     Debug.Log("kasoku");
                     if (speed >= 50f)
@@ -157,20 +173,6 @@ public class PlayerMover : MonoBehaviour
             }
             _direction = direction;
         }
-    }
-    private void CountTime()
-    {
-        float _time = Time.time;
-        if (_time <= 1)
-        {
-            isHitWall = true;
-        }
-        if (isHitWall == true)
-        {
-            //speed = 1.0f;
-            Debug.Log("SpeedReset");
-        }
-        _time = 0;
     }
     IEnumerator ShockCool()
     {
