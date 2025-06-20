@@ -8,7 +8,7 @@ public class SceneLoader : MonoBehaviour
     public void LoadGameScene()
     {
         GameManager.instance.SetObject();
-        SceneManager.LoadScene("PlayerTest");
+        SceneManager.LoadScene("GameScene");
     }
 
     public void LoadRankingScene()
@@ -18,12 +18,12 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadResultScene()
     {
-        SceneManager.LoadScene("ResultScene");
+        SceneManager.LoadScene("Result");
     }
 
     public void LoadTitleScene()
     {
-        SceneManager.LoadScene("TitleScene");
+        SceneManager.LoadScene("Title");
     }
 
 }

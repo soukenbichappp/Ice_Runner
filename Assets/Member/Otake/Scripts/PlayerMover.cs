@@ -3,22 +3,27 @@ using UnityEngine;
 
 public class PlayerMover : MonoBehaviour
 {
+    SpriteRenderer MainSpriteRenderer;
     [SerializeField] private LayerMask stageLayer;
     [SerializeField] private GameObject shockWave;
     [SerializeField] private Transform attackCircle;
     [SerializeField] private Animator _animation;
+    [SerializeField] private Sprite rightSprite;
+    [SerializeField] private Sprite leftSprite;
+    [SerializeField] private Sprite upSprite;
+    [SerializeField] private Sprite downSprite;
     public SceneLoader _sceneLoder;
     private Rigidbody2D rb;
-    private float speed = 1.0f;
+    private float speed = 1.5f;
     private float BACE_SPEED;
     private Vector2 _direction;
     private Vector2 _directionReserve;
-    //?¿½?¿½?¿½?¿½?¿½p
+    //?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½p
     private float xSpeed = 1.0f;
     private float ySpeed = 1.0f;
-    //?¿½È‚ï¿½?¿½?¿½?¿½?¿½?¿½?”‚?¿½?¿½J?¿½E?¿½?¿½?¿½g?¿½p
+    //?ï¿½ï¿½È‚ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½J?ï¿½ï¿½E?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½g?ï¿½ï¿½p
     private int counter = 0;
-    //?¿½È‚ï¿½?¿½éˆï¿½?¿½?¿½Éï¿½?¿½s?¿½?¿½?¿½?¿½?¿½?¿½
+    //?ï¿½ï¿½È‚ï¿½?ï¿½ï¿½éˆï¿½?ï¿½ï¿½?ï¿½ï¿½Éï¿½?ï¿½ï¿½s?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½
     private bool isHitWall = false;
 
     private bool hori = false;
@@ -26,6 +31,7 @@ public class PlayerMover : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        MainSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         shockWave.SetActive(false);
     }
     private void Update()
@@ -36,17 +42,34 @@ public class PlayerMover : MonoBehaviour
     {
         if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
         {
-            //?¿½?¿½?¿½A?¿½E
+            //?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½A?ï¿½ï¿½E
             _directionReserve.x = Input.GetAxisRaw("Horizontal");
-            //?¿½?¿½A?¿½?¿½
+            //?ï¿½ï¿½?ï¿½ï¿½A?ï¿½ï¿½?ï¿½ï¿½
             _directionReserve.y = Input.GetAxisRaw("Vertical");
+            if(_direction.x == 1)
+            {
+                MainSpriteRenderer.sprite = rightSprite;
+            }
+            else if(_direction.x == -1)
+            {
+                MainSpriteRenderer.sprite = leftSprite;
+            }
+            else if(_direction.y == 1)
+            {
+                MainSpriteRenderer.sprite = upSprite;
+            }
+            else if (_direction.y == -1)
+            {
+                MainSpriteRenderer.sprite = downSprite;
+            }
+
         }
         if (_directionReserve != Vector2.zero)
         {
             CheckDirection(_directionReserve);
         }
-        //?¿½ÕŒï¿½?¿½g?¿½Ì”ÍˆÍ‚ğ‘¬“x?¿½É‰ï¿½?¿½?¿½?¿½ÄŠg?¿½?¿½
-        attackCircle.localScale = Vector3.one * (1.0f + speed / 3.0f);
+        //?ï¿½ï¿½ÕŒï¿½?ï¿½ï¿½g?ï¿½ï¿½Ì”ÍˆÍ‚ğ‘¬“x?ï¿½ï¿½É‰ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ÄŠg?ï¿½ï¿½?ï¿½ï¿½
+        attackCircle.localScale = Vector3.one * (1.0f + speed / 10.0f);
         Vector2 dist = _direction * speed * Time.fixedDeltaTime;
         rb.MovePosition(rb.position + dist);
     }
@@ -68,13 +91,13 @@ public class PlayerMover : MonoBehaviour
                 Debug.Log("Hit");
                 Debug.Log($"colliderVec{colliderVec},_direction{_direction}");
                 Debug.Log("Map Hit");
-                if (speed >= 15.0f)
+                if (speed >= 8.0f)
                 {
                     shockWave.SetActive(true);
                     Debug.Log("Atack!");
                     StartCoroutine("WaitTime");
                 }
-                
+                speed = 1.5f;
                 Debug.Log("SpeedReset");
             }
         }
@@ -84,14 +107,14 @@ public class PlayerMover : MonoBehaviour
     {
         if (collision.gameObject.tag == "Map")
         {
-            //?¿½ÇÚG?¿½?¿½
+            //?ï¿½ï¿½ÇÚG?ï¿½ï¿½?ï¿½ï¿½
 
             // CountTime();
 
         }
         if (collision.gameObject.tag == "Enemy")
         {
-            //?¿½G?¿½?¿½e?¿½?¿½
+            //?ï¿½ï¿½G?ï¿½ï¿½?ï¿½ï¿½e?ï¿½ï¿½?ï¿½ï¿½
             Debug.Log("Enemy Hit");
             Debug.Log("End2");
         }
@@ -100,9 +123,9 @@ public class PlayerMover : MonoBehaviour
 
     IEnumerator WaitTime()
     {
-        //?¿½ÕŒï¿½?¿½g?¿½?¿½?¿½?¿½
+        //?ï¿½ï¿½ÕŒï¿½?ï¿½ï¿½g?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½
         
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         StartCoroutine("ShockCool");
         shockWave.SetActive(false);
         Debug.Log("End");
@@ -119,7 +142,7 @@ public class PlayerMover : MonoBehaviour
                 if (_direction != direction)
                 {
                     speed *= 1.15f;
-                    //?¿½?¿½?¿½?¿½
+                    //?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½
                     Debug.Log("kasoku");
                     if (speed >= 50f)
                     {
@@ -148,8 +171,8 @@ public class PlayerMover : MonoBehaviour
     IEnumerator ShockCool()
     {
         speed = 0;
-        yield return new WaitForSeconds(0.5f);
-        speed = 1.0f;
+        yield return new WaitForSeconds(0.1f);
+        speed = 1.5f;
     }
 
 }
