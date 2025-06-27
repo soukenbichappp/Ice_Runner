@@ -3,6 +3,14 @@ using UnityEngine;
 using Cinemachine;
 public class PlayerMover : MonoBehaviour
 {
+    private enum WayDirection
+    {
+        None,
+        Up,
+        Down,
+        Right,
+        Left
+    }
     SpriteRenderer MainSpriteRenderer;
     [SerializeField] private LayerMask stageLayer;
     [SerializeField] private GameObject shockWave;
@@ -14,12 +22,15 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private Sprite upSprite;
     [SerializeField] private Sprite downSprite;
     [SerializeField] private AudioSource shockAudio;
+    [SerializeField] private float _limitSpeed = 0.01f;
     public SceneLoader _sceneLoder;
     private Rigidbody2D rb;
     private float speed = 1.5f;
     private float BACE_SPEED;
     private Vector2 _direction;
     private Vector2 _directionReserve;
+    private Vector2 _way;
+    private WayDirection _wayDirection = WayDirection.None;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -39,9 +50,8 @@ public class PlayerMover : MonoBehaviour
             _directionReserve.x = Input.GetAxisRaw("Horizontal");
             //?��?��A?��?��
             _directionReserve.y = Input.GetAxisRaw("Vertical");
-            if(_direction.x == 1)
-            {
-                MainSpriteRenderer.sprite = rightSprite;
+            if (_direction.x == 1)
+            { 
                 if (speed >= 8.0f)
                 {
                     shockChage.SetActive(true);
@@ -53,7 +63,7 @@ public class PlayerMover : MonoBehaviour
             }
             else if(_direction.x == -1)
             {
-                MainSpriteRenderer.sprite = leftSprite;
+                //MainSpriteRenderer.sprite = leftSprite;
                 if (speed >= 8.0f)
                 {
                     shockChage.SetActive(true);
@@ -65,7 +75,7 @@ public class PlayerMover : MonoBehaviour
             }
             else if(_direction.y == 1)
             {
-                MainSpriteRenderer.sprite = upSprite;
+               // MainSpriteRenderer.sprite = upSprite;
                 if (speed >= 8.0f)
                 {
                     shockChage.SetActive(true);
@@ -77,7 +87,7 @@ public class PlayerMover : MonoBehaviour
             }
             else if (_direction.y == -1)
             {
-                MainSpriteRenderer.sprite = downSprite;
+               // MainSpriteRenderer.sprite = downSprite;
                 if (speed >= 8.0f)
                 {
                     shockChage.SetActive(true);
@@ -146,6 +156,7 @@ public class PlayerMover : MonoBehaviour
             {
                 if (_direction != direction)
                 {
+                    UpdateDirection(direction);
                     speed *= 1.18f;
                     //?��?��?��?��
                     Debug.Log("kasoku");
@@ -166,4 +177,61 @@ public class PlayerMover : MonoBehaviour
         speed = 1.5f;
     }
 
+    private void UpdateDirection(Vector2 direction)
+    {
+        var waydirection = GetWayDirection(direction);
+        if (_wayDirection != waydirection)
+        {
+            Debug.Log(waydirection);
+            //向きを変える
+            switch (waydirection)
+            {
+                case WayDirection.Up:
+                    MainSpriteRenderer.sprite = upSprite;
+                    break;
+                case WayDirection.Down:
+                    MainSpriteRenderer.sprite = downSprite;
+                    break;
+                case WayDirection.Right:
+                    MainSpriteRenderer.sprite = rightSprite;
+                    break;
+                case WayDirection.Left:
+                    MainSpriteRenderer.sprite = leftSprite;
+                    break;
+            }
+            _wayDirection = waydirection;
+        }
+    }
+
+    private WayDirection GetWayDirection(Vector2 direction)
+    {
+        _way.x = Mathf.Abs(direction.x);
+        _way.y = Mathf.Abs(direction.y);
+        if(_limitSpeed > _way.x && _limitSpeed > _way.y)
+        {
+            //しきい値
+            _way.x = 0;
+            _way.y = 0;
+            return WayDirection.None;
+        }
+        if(_way.x > _way.y)
+        {
+            //左右
+            if(direction.x > 0)
+            {
+                return WayDirection.Right;
+            }
+            return WayDirection.Left;
+        }
+        else
+        {
+            //上下
+            if(direction.y > 0)
+            {
+                return WayDirection.Up;
+            }
+            return WayDirection.Down;
+        }
+
+    }
 }
