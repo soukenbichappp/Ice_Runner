@@ -1,38 +1,31 @@
 using System.Collections;
 using UnityEngine;
-
+using Cinemachine;
 public class PlayerMover : MonoBehaviour
 {
     SpriteRenderer MainSpriteRenderer;
     [SerializeField] private LayerMask stageLayer;
     [SerializeField] private GameObject shockWave;
+    [SerializeField] private GameObject shockChage;
     [SerializeField] private Transform attackCircle;
     [SerializeField] private Animator _animation;
     [SerializeField] private Sprite rightSprite;
     [SerializeField] private Sprite leftSprite;
     [SerializeField] private Sprite upSprite;
     [SerializeField] private Sprite downSprite;
+    [SerializeField] private AudioSource shockAudio;
     public SceneLoader _sceneLoder;
     private Rigidbody2D rb;
     private float speed = 1.5f;
     private float BACE_SPEED;
     private Vector2 _direction;
     private Vector2 _directionReserve;
-    //?��?��?��?��?��p
-    private float xSpeed = 1.0f;
-    private float ySpeed = 1.0f;
-    //?��Ȃ�?��?��?��?��?��?��?��?��J?��E?��?��?��g?��p
-    private int counter = 0;
-    //?��Ȃ�?��鏈�?��?��Ɏ�?��s?��?��?��?��?��?��
-    private bool isHitWall = false;
-
-    private bool hori = false;
-    private bool vart = false;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         MainSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         shockWave.SetActive(false);
+        shockChage.SetActive(false);
     }
     private void Update()
     {
@@ -48,21 +41,56 @@ public class PlayerMover : MonoBehaviour
             _directionReserve.y = Input.GetAxisRaw("Vertical");
             if(_direction.x == 1)
             {
-                MainSpriteRenderer.sprite = rightSprite;
+                if(speed >= 8.0f)
+                {
+                    MainSpriteRenderer.sprite = rightSprite;
+                    shockChage.SetActive(true);
+                }
+                else
+                {
+                    MainSpriteRenderer.sprite = rightSprite;
+                    shockChage.SetActive(false);
+                }
             }
             else if(_direction.x == -1)
             {
-                MainSpriteRenderer.sprite = leftSprite;
+                if (speed >= 8.0f)
+                {
+                    MainSpriteRenderer.sprite = leftSprite;
+                    shockChage.SetActive(true);
+                }
+                else
+                {
+                    MainSpriteRenderer.sprite = leftSprite;
+                    shockChage.SetActive(false);
+                }
             }
             else if(_direction.y == 1)
             {
-                MainSpriteRenderer.sprite = upSprite;
+                if (speed >= 8.0f)
+                {
+                    MainSpriteRenderer.sprite = upSprite;
+                    shockChage.SetActive(true);
+                }
+                else
+                {
+                    MainSpriteRenderer.sprite = upSprite;
+                    shockChage.SetActive(false);
+                }
             }
             else if (_direction.y == -1)
             {
-                MainSpriteRenderer.sprite = downSprite;
+                if (speed >= 8.0f)
+                {
+                    MainSpriteRenderer.sprite = downSprite;
+                    shockChage.SetActive(true);
+                }
+                else
+                {
+                    MainSpriteRenderer.sprite = downSprite;
+                    shockChage.SetActive(false);
+                }
             }
-
         }
         if (_directionReserve != Vector2.zero)
         {
@@ -82,7 +110,7 @@ public class PlayerMover : MonoBehaviour
     {
         if (other.gameObject.tag == "Block")
         {
-            
+
             var colliderVec = other.transform.position - transform.position;
 
             if (Mathf.Abs(colliderVec.x - _direction.x) < 0.3f && Mathf.Abs(colliderVec.y - _direction.y) < 0.3f)
@@ -95,6 +123,9 @@ public class PlayerMover : MonoBehaviour
                 {
                     shockWave.SetActive(true);
                     Debug.Log("Atack!");
+                    var impulseSouse = GetComponent<CinemachineImpulseSource>();
+                    impulseSouse.GenerateImpulse();
+                    shockAudio.Play();
                     StartCoroutine("WaitTime");
                 }
                 speed = 1.5f;
@@ -102,7 +133,6 @@ public class PlayerMover : MonoBehaviour
             }
         }
     }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Map")
@@ -141,7 +171,7 @@ public class PlayerMover : MonoBehaviour
             {
                 if (_direction != direction)
                 {
-                    speed *= 1.15f;
+                    speed *= 1.18f;
                     //?��?��?��?��
                     Debug.Log("kasoku");
                     if (speed >= 50f)
@@ -154,24 +184,10 @@ public class PlayerMover : MonoBehaviour
             _direction = direction;
         }
     }
-    private void CountTime()
-    {
-        float _time = Time.time;
-        if (_time <= 1)
-        {
-            isHitWall = true;
-        }
-        if (isHitWall == true)
-        {
-            //speed = 1.0f;
-            Debug.Log("SpeedReset");
-        }
-        _time = 0;
-    }
     IEnumerator ShockCool()
     {
         speed = 0;
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.4f);
         speed = 1.5f;
     }
 
