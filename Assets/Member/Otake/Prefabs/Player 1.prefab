@@ -171,7 +171,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 05d0d766ee5fbc94a8a8e54828520544, type: 3}
-  m_Color: {r: 0.109803915, g: 0.74125886, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -435,6 +435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 710f61a583842034ea6ba8ab0adbba99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShockChageRenderer: {fileID: 1106268746182486912}
   stageLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -446,7 +447,12 @@ MonoBehaviour:
   leftSprite: {fileID: 21300000, guid: d164765281d118e478e99ee97efce570, type: 3}
   upSprite: {fileID: 21300000, guid: 251344cc73fb1704e8e51156b000e5cf, type: 3}
   downSprite: {fileID: 21300000, guid: 05d0d766ee5fbc94a8a8e54828520544, type: 3}
+  shockUpSprite: {fileID: 21300000, guid: 250677acd0c304b42aaf7ed353a5740c, type: 3}
+  shockDownSprite: {fileID: 21300000, guid: 121f89dc16106c14aa1fb9a325a24f14, type: 3}
+  shockRightSprite: {fileID: 21300000, guid: 553aa4295680d83449b1a1ef96bb45e8, type: 3}
+  shockLeftSprite: {fileID: 21300000, guid: 63a12572925c98146aef6bcda8e32840, type: 3}
   shockAudio: {fileID: 6335573253122490594}
+  _limitSpeed: 0.01
   _sceneLoder: {fileID: 0}
 --- !u!50 &5340932164111021551
 Rigidbody2D:

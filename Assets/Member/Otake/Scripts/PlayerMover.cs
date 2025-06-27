@@ -12,6 +12,7 @@ public class PlayerMover : MonoBehaviour
         Left
     }
     SpriteRenderer MainSpriteRenderer;
+    [SerializeField]SpriteRenderer ShockChageRenderer;
     [SerializeField] private LayerMask stageLayer;
     [SerializeField] private GameObject shockWave;
     [SerializeField] private GameObject shockChage;
@@ -21,9 +22,13 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private Sprite leftSprite;
     [SerializeField] private Sprite upSprite;
     [SerializeField] private Sprite downSprite;
+    [SerializeField] private Sprite shockUpSprite;
+    [SerializeField] private Sprite shockDownSprite;
+    [SerializeField] private Sprite shockRightSprite;
+    [SerializeField] private Sprite shockLeftSprite;
     [SerializeField] private AudioSource shockAudio;
     [SerializeField] private float _limitSpeed = 0.01f;
-    public SceneLoader _sceneLoder;
+    //public SceneLoader _sceneLoder;
     private Rigidbody2D rb;
     private float speed = 1.5f;
     private float BACE_SPEED;
@@ -50,53 +55,6 @@ public class PlayerMover : MonoBehaviour
             _directionReserve.x = Input.GetAxisRaw("Horizontal");
             //?��?��A?��?��
             _directionReserve.y = Input.GetAxisRaw("Vertical");
-            if (_direction.x == 1)
-            { 
-                if (speed >= 8.0f)
-                {
-                    shockChage.SetActive(true);
-                }
-                else
-                {
-                    shockChage.SetActive(false);
-                }
-            }
-            else if(_direction.x == -1)
-            {
-                //MainSpriteRenderer.sprite = leftSprite;
-                if (speed >= 8.0f)
-                {
-                    shockChage.SetActive(true);
-                }
-                else
-                {
-                    shockChage.SetActive(false);
-                }
-            }
-            else if(_direction.y == 1)
-            {
-               // MainSpriteRenderer.sprite = upSprite;
-                if (speed >= 8.0f)
-                {
-                    shockChage.SetActive(true);
-                }
-                else
-                {
-                    shockChage.SetActive(false);
-                }
-            }
-            else if (_direction.y == -1)
-            {
-               // MainSpriteRenderer.sprite = downSprite;
-                if (speed >= 8.0f)
-                {
-                    shockChage.SetActive(true);
-                }
-                else
-                {
-                    shockChage.SetActive(false);
-                }
-            }
         }
         if (_directionReserve != Vector2.zero)
         {
@@ -141,6 +99,7 @@ public class PlayerMover : MonoBehaviour
     {
         //?��Ռ�?��g?��?��?��?��
         yield return new WaitForSeconds(0.2f);
+        shockChage.SetActive(false);
         StartCoroutine("ShockCool");
         shockWave.SetActive(false);
         Debug.Log("End");
@@ -182,21 +141,60 @@ public class PlayerMover : MonoBehaviour
         var waydirection = GetWayDirection(direction);
         if (_wayDirection != waydirection)
         {
-            Debug.Log(waydirection);
             //向きを変える
             switch (waydirection)
             {
                 case WayDirection.Up:
-                    MainSpriteRenderer.sprite = upSprite;
+                    if(speed >= 8.0f)
+                    {
+                        MainSpriteRenderer.sprite = upSprite;
+                        ShockChageRenderer.sprite = shockUpSprite;
+                        shockChage.SetActive(true);
+                    }
+                    else
+                    {
+                        MainSpriteRenderer.sprite = upSprite;
+                        shockChage.SetActive(false);
+                    }
                     break;
                 case WayDirection.Down:
-                    MainSpriteRenderer.sprite = downSprite;
+                    if(speed >= 8.0f)
+                    {
+                        MainSpriteRenderer.sprite = downSprite;
+                        ShockChageRenderer.sprite = shockDownSprite;
+                        shockChage.SetActive(true);
+                    }
+                    else
+                    {
+                        MainSpriteRenderer.sprite = downSprite;
+                        shockChage.SetActive(false);
+                    }
                     break;
                 case WayDirection.Right:
-                    MainSpriteRenderer.sprite = rightSprite;
+                    if(speed >= 8.0f)
+                    {
+                        MainSpriteRenderer.sprite = rightSprite;
+                        ShockChageRenderer.sprite = shockRightSprite;
+                        shockChage.SetActive(true);
+                    }
+                    else
+                    {
+                        MainSpriteRenderer.sprite = rightSprite;
+                        shockChage.SetActive(false);
+                    }
                     break;
                 case WayDirection.Left:
-                    MainSpriteRenderer.sprite = leftSprite;
+                    if(speed >= 8.0)
+                    {
+                        MainSpriteRenderer.sprite = leftSprite;
+                        ShockChageRenderer.sprite = shockLeftSprite;
+                        shockChage.SetActive(true);
+                    }
+                    else
+                    {
+                        MainSpriteRenderer.sprite = leftSprite;
+                        shockChage.SetActive(false);
+                    }
                     break;
             }
             _wayDirection = waydirection;
@@ -209,7 +207,6 @@ public class PlayerMover : MonoBehaviour
         _way.y = Mathf.Abs(direction.y);
         if(_limitSpeed > _way.x && _limitSpeed > _way.y)
         {
-            //しきい値
             _way.x = 0;
             _way.y = 0;
             return WayDirection.None;
@@ -232,6 +229,5 @@ public class PlayerMover : MonoBehaviour
             }
             return WayDirection.Down;
         }
-
     }
 }
