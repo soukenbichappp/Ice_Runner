@@ -10535,7 +10535,7 @@ GameObject:
   - component: {fileID: 889977398}
   - component: {fileID: 889977397}
   m_Layer: 0
-  m_Name: DeathAnimation
+  m_Name: DeathfrontAnimation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
