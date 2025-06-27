@@ -44,3 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54d48e3fc73856b439e2fe2228e298d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameScene: OotaniGameScene
+  _rankingScene: 
+  _resultScene: ResultScene
+  _titleScene: TitleScene
+  _gameSceneAsset: {fileID: 102900000, guid: 2a0e727b20e37bd45a3d4d1d499b6d49, type: 3}
+  _rankingSceneAsset: {fileID: 0}
+  _resultSceneAsset: {fileID: 102900000, guid: 262839f912092ae4fa52ab2d203e2150, type: 3}
+  _titleSceneAsset: {fileID: 102900000, guid: 213cbcc05c587984f9a1c479963ff4f7, type: 3}
