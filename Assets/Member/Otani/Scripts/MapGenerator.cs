@@ -5,37 +5,67 @@ using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
 {
-    [SerializeField] GameObject[] _maps;
-    [SerializeField] Transform _parentTransform;
-    [SerializeField] float _mapHeight = 20f;
-    [SerializeField] float _nextSpawnPos = 40f;
+    // マップの端から端までのサイズ
+    private const int StageTipSize = 20;
 
-    private Rigidbody2D _rb;
+    private int _currentTipIndex;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
+    [SerializeField] private Transform _character; // キャラクターの位置
+    [SerializeField] private GameObject[] _stageTips; // 生成するステージ
+    [SerializeField] private int _startTipIndex; // 開始するステージのインデックス
+    [SerializeField] private int _preInstantiate; // 先読み生成
+    [SerializeField] private List<GameObject> generatedStageList = new List<GameObject>();
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
         
     }
 
-    //private void OnTriggerExit(Collider other)
-    //{
-    //    if (other.CompareTag("Player"))
-    //    {
-    //        Debug.Log(_maps.Length);
-    //        Instantiate(_maps[Random.Range(0, _maps.Length)], new Vector3(transform.position.x, transform.position.y + 40), Quaternion.identity, _parentTransform);
-    //    }
-    //}
-
-    public void MapGenerat()
+    private void Update()
     {
-        Debug.Log("�������܂���");
-        Instantiate(_maps[Random.Range(0, _maps.Length)], new Vector3(0, _nextSpawnPos), Quaternion.identity, _parentTransform);
-        _nextSpawnPos += _mapHeight;
+        int charPositionIndex = (int)(_character.position.y / StageTipSize);
+        // 次のステージチップに入ったらステージの更新処理を行う
+        if (charPositionIndex + _preInstantiate > _currentTipIndex)
+        {
+            UpdateStage(charPositionIndex + _preInstantiate);
+        }
+
+    }
+
+    private void UpdateStage(int toTipIndex)
+    {
+        // 指定のindexが現在のindexより小さければ何もしない
+        if (toTipIndex <= _currentTipIndex) return;
+        for(int i = _currentTipIndex + 1; i <= toTipIndex; i++)
+        {
+            GameObject stageObject = GenerateStage(i); // ステージを生成
+            generatedStageList.Add(stageObject);
+        }
+        // 保持上限まで
+        while (generatedStageList.Count > _preInstantiate + 2) DestroyOldestStage();
+        _currentTipIndex = toTipIndex; 
+    }
+
+    private GameObject GenerateStage(int tipIndex)
+    {
+        // ランダムな値のステージを生成
+        int nextStageTip = Random.Range(0, _stageTips.Length);
+
+        GameObject stageObject = Instantiate(
+            _stageTips[nextStageTip],
+            new Vector3(0, tipIndex * StageTipSize, 0),
+            Quaternion.identity);
+        // 生成したオブジェクトを返す
+        return stageObject; 
+    }
+
+    private void DestroyOldestStage()
+    {
+        // リストの先頭を取得
+        GameObject oldStage = generatedStageList[0];
+        // リストの先頭を削除
+        generatedStageList.RemoveAt(0);
+        // 取得したオブジェクトを削除
+        Destroy(oldStage);
     }
 }
