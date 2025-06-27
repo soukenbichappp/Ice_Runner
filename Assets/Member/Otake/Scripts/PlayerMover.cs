@@ -41,53 +41,49 @@ public class PlayerMover : MonoBehaviour
             _directionReserve.y = Input.GetAxisRaw("Vertical");
             if(_direction.x == 1)
             {
-                if(speed >= 8.0f)
+                MainSpriteRenderer.sprite = rightSprite;
+                if (speed >= 8.0f)
                 {
-                    MainSpriteRenderer.sprite = rightSprite;
                     shockChage.SetActive(true);
                 }
                 else
                 {
-                    MainSpriteRenderer.sprite = rightSprite;
                     shockChage.SetActive(false);
                 }
             }
             else if(_direction.x == -1)
             {
+                MainSpriteRenderer.sprite = leftSprite;
                 if (speed >= 8.0f)
                 {
-                    MainSpriteRenderer.sprite = leftSprite;
                     shockChage.SetActive(true);
                 }
                 else
                 {
-                    MainSpriteRenderer.sprite = leftSprite;
                     shockChage.SetActive(false);
                 }
             }
             else if(_direction.y == 1)
             {
+                MainSpriteRenderer.sprite = upSprite;
                 if (speed >= 8.0f)
                 {
-                    MainSpriteRenderer.sprite = upSprite;
                     shockChage.SetActive(true);
                 }
                 else
                 {
-                    MainSpriteRenderer.sprite = upSprite;
                     shockChage.SetActive(false);
                 }
             }
             else if (_direction.y == -1)
             {
+                MainSpriteRenderer.sprite = downSprite;
                 if (speed >= 8.0f)
                 {
-                    MainSpriteRenderer.sprite = downSprite;
                     shockChage.SetActive(true);
                 }
                 else
                 {
-                    MainSpriteRenderer.sprite = downSprite;
                     shockChage.SetActive(false);
                 }
             }
@@ -110,9 +106,7 @@ public class PlayerMover : MonoBehaviour
     {
         if (other.gameObject.tag == "Block")
         {
-
             var colliderVec = other.transform.position - transform.position;
-
             if (Mathf.Abs(colliderVec.x - _direction.x) < 0.3f && Mathf.Abs(colliderVec.y - _direction.y) < 0.3f)
             {
                 //
@@ -133,28 +127,9 @@ public class PlayerMover : MonoBehaviour
             }
         }
     }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Map")
-        {
-            //?��ǐڐG?��?��
-
-            // CountTime();
-
-        }
-        if (collision.gameObject.tag == "Enemy")
-        {
-            //?��G?��?��e?��?��
-            Debug.Log("Enemy Hit");
-            Debug.Log("End2");
-        }
-
-    }
-
     IEnumerator WaitTime()
     {
         //?��Ռ�?��g?��?��?��?��
-        
         yield return new WaitForSeconds(0.2f);
         StartCoroutine("ShockCool");
         shockWave.SetActive(false);
