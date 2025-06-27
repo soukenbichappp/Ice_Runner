@@ -16,7 +16,7 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private AudioSource shockAudio;
     public SceneLoader _sceneLoder;
     private Rigidbody2D rb;
-    private float speed = 1.5f;
+    private float speed = 3.0f;
     private float BACE_SPEED;
     private Vector2 _direction;
     private Vector2 _directionReserve;
@@ -122,7 +122,7 @@ public class PlayerMover : MonoBehaviour
                     shockAudio.Play();
                     StartCoroutine("WaitTime");
                 }
-                speed = 1.5f;
+                speed = 3.0f;
                 Debug.Log("SpeedReset");
             }
         }
@@ -163,7 +163,7 @@ public class PlayerMover : MonoBehaviour
     {
         speed = 0;
         yield return new WaitForSeconds(0.4f);
-        speed = 1.5f;
+        speed = 3.0f;
     }
 
 }

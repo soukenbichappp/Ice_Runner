@@ -2012,6 +2012,7 @@ MonoBehaviour:
   _enemySpeed: 2.5
   _startTarget: {fileID: 1807344788}
   _endTarget: {fileID: 1007765103}
+  _gameManager: {fileID: 397366248}
 --- !u!58 &264383944
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2302,6 +2303,7 @@ MonoBehaviour:
   _enemySpeed: 2.5
   _startTarget: {fileID: 224067567}
   _endTarget: {fileID: 702745406}
+  _gameManager: {fileID: 397366248}
 --- !u!58 &325601160
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2937,6 +2939,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 760e4bb5a4e7bfb4a9d9d39d891d6684, type: 3}
+--- !u!1 &397366248 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7393401705002920645, guid: c218a44d4856217448a7c61bbffc4d2b, type: 3}
+  m_PrefabInstance: {fileID: 852786954}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &397642895
 GameObject:
   m_ObjectHideFlags: 0
@@ -10382,6 +10389,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6886903366668660305, guid: 3e703a3e1e95a8b4eba7f1bbcd08376e, type: 3}
+      propertyPath: m_Radius
+      value: 0.49
+      objectReference: {fileID: 0}
     - target: {fileID: 8942773290174844281, guid: 3e703a3e1e95a8b4eba7f1bbcd08376e, type: 3}
       propertyPath: _sceneLoder
       value: 
@@ -11170,6 +11181,7 @@ MonoBehaviour:
   _enemySpeed: 2.5
   _startTarget: {fileID: 2142622544}
   _endTarget: {fileID: 528307094}
+  _gameManager: {fileID: 397366248}
 --- !u!58 &972906527
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -12042,6 +12054,7 @@ MonoBehaviour:
   _enemySpeed: 2.5
   _startTarget: {fileID: 1822924748}
   _endTarget: {fileID: 1037638805}
+  _gameManager: {fileID: 397366248}
 --- !u!58 &1049161670
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -12913,6 +12926,7 @@ MonoBehaviour:
   _enemySpeed: 2.5
   _startTarget: {fileID: 995843308}
   _endTarget: {fileID: 1800589198}
+  _gameManager: {fileID: 397366248}
 --- !u!58 &1112824503
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -16225,7 +16239,7 @@ Transform:
   m_GameObject: {fileID: 1582996654}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.5181785, y: 2.5607424, z: 0.024504084}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -18758,6 +18772,9 @@ MonoBehaviour:
   _character: {fileID: 1380958543}
   _stageTips:
   - {fileID: 319485857398894762, guid: fbcf51187625ab340b0e94cd52b121d8, type: 3}
+  - {fileID: 6839811126119898696, guid: b7cdc2468f961cb48adbd531f54d6171, type: 3}
+  - {fileID: 4468092683651076874, guid: ca31456e6c198ab4a9a1820dff9f7f92, type: 3}
+  - {fileID: 5163447673306719881, guid: 7aeecc6deffc8a94da044fbc623903e1, type: 3}
   _startTipIndex: 1
   _preInstantiate: 3
   generatedStageList:
@@ -18771,7 +18788,7 @@ Transform:
   m_GameObject: {fileID: 1876281527}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -33.718624, y: 57.791046, z: -10.526416}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21225,6 +21242,7 @@ MonoBehaviour:
   _enemySpeed: 2.5
   _startTarget: {fileID: 1591745434}
   _endTarget: {fileID: 1947037975}
+  _gameManager: {fileID: 397366248}
 --- !u!224 &2029740682737114596
 RectTransform:
   m_ObjectHideFlags: 0
