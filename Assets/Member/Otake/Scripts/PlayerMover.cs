@@ -145,7 +145,7 @@ public class PlayerMover : MonoBehaviour
             switch (waydirection)
             {
                 case WayDirection.Up:
-                    if(speed >= 8.0f)
+                    if(speed >= 7.8f)
                     {
                         MainSpriteRenderer.sprite = upSprite;
                         ShockChageRenderer.sprite = shockUpSprite;
@@ -158,7 +158,7 @@ public class PlayerMover : MonoBehaviour
                     }
                     break;
                 case WayDirection.Down:
-                    if(speed >= 8.0f)
+                    if(speed >= 7.8f)
                     {
                         MainSpriteRenderer.sprite = downSprite;
                         ShockChageRenderer.sprite = shockDownSprite;
@@ -171,7 +171,7 @@ public class PlayerMover : MonoBehaviour
                     }
                     break;
                 case WayDirection.Right:
-                    if(speed >= 8.0f)
+                    if(speed >= 7.8f)
                     {
                         MainSpriteRenderer.sprite = rightSprite;
                         ShockChageRenderer.sprite = shockRightSprite;
@@ -184,7 +184,7 @@ public class PlayerMover : MonoBehaviour
                     }
                     break;
                 case WayDirection.Left:
-                    if(speed >= 8.0)
+                    if(speed >= 7.8)
                     {
                         MainSpriteRenderer.sprite = leftSprite;
                         ShockChageRenderer.sprite = shockLeftSprite;
