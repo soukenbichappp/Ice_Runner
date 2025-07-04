@@ -27,6 +27,10 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private Sprite shockRightSprite;
     [SerializeField] private Sprite shockLeftSprite;
     [SerializeField] private AudioSource shockAudio;
+    [SerializeField] private GameObject _deathfront;
+    [SerializeField] private GameObject _deathback;
+    [SerializeField] private GameObject _deathright;
+    [SerializeField] private GameObject _deathleft;
     [SerializeField] private float _limitSpeed = 0.01f;
     //public SceneLoader _sceneLoder;
     private Rigidbody2D rb;
@@ -42,6 +46,10 @@ public class PlayerMover : MonoBehaviour
         MainSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         shockWave.SetActive(false);
         shockChage.SetActive(false);
+        _deathfront.SetActive(false);
+        _deathback.SetActive(false);
+        _deathleft.SetActive(false);
+        _deathright.SetActive(false);
     }
     private void Update()
     {
@@ -65,11 +73,7 @@ public class PlayerMover : MonoBehaviour
         Vector2 dist = _direction * speed * Time.fixedDeltaTime;
         rb.MovePosition(rb.position + dist);
     }
-    /// <summary>
-    /// Sent when another object enters a trigger collider attached to this
-    /// object (2D physics only).
-    /// </summary>
-    /// <param name="other">The other Collider2D involved in this collision.</param>
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Block")
@@ -94,10 +98,17 @@ public class PlayerMover : MonoBehaviour
                 Debug.Log("SpeedReset");
             }
         }
+        if(other.gameObject.tag == "Enemy")
+        {
+            if(_direction.x == 1)
+            {
+                _deathright.SetActive(true);
+            }
+        }
     }
     IEnumerator WaitTime()
     {
-        //?��Ռ�?��g?��?��?��?��
+        //衝撃波の切り替え
         yield return new WaitForSeconds(0.2f);
         shockChage.SetActive(false);
         StartCoroutine("ShockCool");
@@ -117,7 +128,7 @@ public class PlayerMover : MonoBehaviour
                 {
                     UpdateDirection(direction);
                     speed *= 1.18f;
-                    //?��?��?��?��
+                    //速度上限
                     Debug.Log("kasoku");
                     if (speed >= 50f)
                     {
