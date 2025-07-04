@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _scoreText;
     [SerializeField] private GameObject _pauseButton;
     [SerializeField] private GameObject _playBackButton;
+    public static List<float> _ranking = new List<float>(6) { 0, 0, 0, 0, 0, 0};
+    private float _thisScore;
     public static GameManager instance = null;
     public static int _score = 0;
 
@@ -33,23 +35,32 @@ public class GameManager : MonoBehaviour
         SetObject();
         _pauseButton.SetActive(true);
         _playBackButton.SetActive(false);
+        Debug.Log(_ranking.Count);
     }
 
     // Update is called once per frame
     void Update()
     {
-        //�G�Ɠ����������̏���
-        //if (player.isHit == true)
-        //{
-        //    GameOver();
-        //}
+        
     }
 
-    void GameOver()
+    public void ScoreJudge()
     {
-        // GameOver����
-        // GameOver�A�j���[�V����������ɓ����
-        SceneManager.LoadScene("");
+        for (int i = 5;  i < _ranking.Count; i--)
+        {
+            if (_ranking[i] < _score)
+            {
+                for (int j = 0; j < i; j++)
+                {
+                    _ranking[j] = _ranking[j + 1]; 
+                }
+                _ranking[i] = _score;
+                _ranking[0] = 0;
+                Debug.Log(_ranking.Count);
+                Debug.Log(_ranking[i]);
+                break;
+            }
+        }
     }
 
     public void OpenSetting()
