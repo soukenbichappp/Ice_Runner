@@ -30,6 +30,7 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadResultScene()
     {
+        GameManager.instance.ScoreJudge();
         SceneManager.LoadScene(_resultScene);
     }
 
