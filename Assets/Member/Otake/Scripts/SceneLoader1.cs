@@ -8,7 +8,7 @@ public class SceneLoader1 : MonoBehaviour
     public void LoadGameScene()
     {
         GameManager.instance.SetObject();
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("OtaniCopyScene");
     }
 
     public void LoadRankingScene()
