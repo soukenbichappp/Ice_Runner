@@ -12,12 +12,11 @@ public class PlayerMover : MonoBehaviour
         Left
     }
     SpriteRenderer MainSpriteRenderer;
-    [SerializeField]SpriteRenderer ShockChageRenderer;
+    [SerializeField] SpriteRenderer ShockChageRenderer;
     [SerializeField] private LayerMask stageLayer;
     [SerializeField] private GameObject shockWave;
     [SerializeField] private GameObject shockChage;
     [SerializeField] private Transform attackCircle;
-    [SerializeField] private Animator _animation;
     [SerializeField] private Sprite rightSprite;
     [SerializeField] private Sprite leftSprite;
     [SerializeField] private Sprite upSprite;
@@ -27,15 +26,16 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private Sprite shockRightSprite;
     [SerializeField] private Sprite shockLeftSprite;
     [SerializeField] private AudioSource shockAudio;
+    [SerializeField] private AudioSource shockmissAudio;
     [SerializeField] private GameObject _deathfront;
     [SerializeField] private GameObject _deathback;
     [SerializeField] private GameObject _deathright;
     [SerializeField] private GameObject _deathleft;
     [SerializeField] private float _limitSpeed = 0.01f;
-    //public SceneLoader _sceneLoder;
     private Rigidbody2D rb;
+    private bool deathflag = false;
+    private bool shockflag = true;
     private float speed = 1.5f;
-    private float BACE_SPEED;
     private Vector2 _direction;
     private Vector2 _directionReserve;
     private Vector2 _way;
@@ -51,10 +51,6 @@ public class PlayerMover : MonoBehaviour
         _deathleft.SetActive(false);
         _deathright.SetActive(false);
     }
-    private void Update()
-    {
-
-    }
     private void FixedUpdate()
     {
         if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
@@ -69,13 +65,66 @@ public class PlayerMover : MonoBehaviour
             CheckDirection(_directionReserve);
         }
         //?��Ռ�?��g?��͈̔͂𑬓x?��ɉ�?��?��?��Ċg?��?��
-        attackCircle.localScale = Vector3.one * (1.0f + speed / 10.0f);
+        //attackCircle.localScale = Vector3.one * (1.0f + speed / 10.0f);
         Vector2 dist = _direction * speed * Time.fixedDeltaTime;
         rb.MovePosition(rb.position + dist);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.gameObject.tag == "Enemy")
+        {
+            if(deathflag == false)
+            {
+                if (_direction.x == -1)
+                {
+                    Debug.Log("nyu");
+                    speed = 0;
+                    if (shockWave.activeSelf is false)
+                    {
+                        GetComponent<Renderer>().material.color = new Color(255, 255, 255, 0);
+                        shockChage.SetActive(false);
+                        _deathleft.SetActive(true);
+                        deathflag = true;
+                    }
+
+                }
+                else if (_direction.x == 1)
+                {
+                    speed = 0;
+                    if (shockWave.activeSelf is false)
+                    {
+                        GetComponent<Renderer>().material.color = new Color(255, 255, 255, 0);
+                        shockChage.SetActive(false);
+                        _deathright.SetActive(true); 
+                        deathflag = true;
+                    }
+                }
+                else if (_direction.y == 1)
+                {
+                    speed = 0;
+                    if (shockWave.activeSelf is false)
+                    {
+                        GetComponent<Renderer>().material.color = new Color(255, 255, 255, 0);
+                        shockChage.SetActive(false);
+                        _deathback.SetActive(true);
+                        deathflag = true;
+                    }
+                }
+                else if (_direction.y == -1)
+                {
+                    speed = 0;
+                    if (shockWave.activeSelf is false)
+                    {
+                        GetComponent<Renderer>().material.color = new Color(255, 255, 255, 0);
+                        shockChage.SetActive(false);
+                        _deathfront.SetActive(true);
+                        deathflag = true;
+                    }
+                }
+            }
+        }
+
         if (other.gameObject.tag == "Block")
         {
             var colliderVec = other.transform.position - transform.position;
@@ -94,15 +143,18 @@ public class PlayerMover : MonoBehaviour
                     shockAudio.Play();
                     StartCoroutine("WaitTime");
                 }
+                if (speed < 8.0f && speed > 6.0f)
+                {Debug.Log(speed);
+                    if (shockflag == true)
+                    {
+                        shockmissAudio.Play();
+                        shockflag = false;
+                        speed = 1.5f;
+                    }
+                }
                 speed = 1.5f;
+                shockflag = true;
                 Debug.Log("SpeedReset");
-            }
-        }
-        if(other.gameObject.tag == "Enemy")
-        {
-            if(_direction.x == 1)
-            {
-                _deathright.SetActive(true);
             }
         }
     }
@@ -156,7 +208,7 @@ public class PlayerMover : MonoBehaviour
             switch (waydirection)
             {
                 case WayDirection.Up:
-                    if(speed >= 7.8f)
+                    if (speed >= 7.8f)
                     {
                         MainSpriteRenderer.sprite = upSprite;
                         ShockChageRenderer.sprite = shockUpSprite;
@@ -169,7 +221,7 @@ public class PlayerMover : MonoBehaviour
                     }
                     break;
                 case WayDirection.Down:
-                    if(speed >= 7.8f)
+                    if (speed >= 7.8f)
                     {
                         MainSpriteRenderer.sprite = downSprite;
                         ShockChageRenderer.sprite = shockDownSprite;
@@ -182,7 +234,7 @@ public class PlayerMover : MonoBehaviour
                     }
                     break;
                 case WayDirection.Right:
-                    if(speed >= 7.8f)
+                    if (speed >= 7.8f)
                     {
                         MainSpriteRenderer.sprite = rightSprite;
                         ShockChageRenderer.sprite = shockRightSprite;
@@ -195,7 +247,7 @@ public class PlayerMover : MonoBehaviour
                     }
                     break;
                 case WayDirection.Left:
-                    if(speed >= 7.8)
+                    if (speed >= 7.8)
                     {
                         MainSpriteRenderer.sprite = leftSprite;
                         ShockChageRenderer.sprite = shockLeftSprite;
@@ -216,16 +268,16 @@ public class PlayerMover : MonoBehaviour
     {
         _way.x = Mathf.Abs(direction.x);
         _way.y = Mathf.Abs(direction.y);
-        if(_limitSpeed > _way.x && _limitSpeed > _way.y)
+        if (_limitSpeed > _way.x && _limitSpeed > _way.y)
         {
             _way.x = 0;
             _way.y = 0;
             return WayDirection.None;
         }
-        if(_way.x > _way.y)
+        if (_way.x > _way.y)
         {
             //左右
-            if(direction.x > 0)
+            if (direction.x > 0)
             {
                 return WayDirection.Right;
             }
@@ -234,7 +286,7 @@ public class PlayerMover : MonoBehaviour
         else
         {
             //上下
-            if(direction.y > 0)
+            if (direction.y > 0)
             {
                 return WayDirection.Up;
             }
