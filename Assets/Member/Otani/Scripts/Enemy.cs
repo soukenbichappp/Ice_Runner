@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     [SerializeField, Header("２つめの位置")] private Transform _firstTarget;
     [SerializeField, Header("３つめの位置")] private Transform _secondTarget;
     [SerializeField, Header("最後の位置")] private Transform _endTarget;
+    private Animator _animator;
     private bool _startTatgetMove;
     private bool _firstTargetMove;
     private bool _secondTargetMove;
@@ -24,17 +25,14 @@ public class Enemy : MonoBehaviour
         _firstTargetMove = true;
         _secondTargetMove = false;
         _endTargetMove = false;
+        _animator = GetComponent<Animator>();
+        _animator.SetBool("movefront", true);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        
-    }
-
-    private void FixedUpdate()
-    {
+        Vector3 pastPosition = transform.position;
         if (_startTatgetMove)
         {
             transform.position = Vector3.MoveTowards(transform.position, _startTarget.position, _enemySpeed * Time.deltaTime);
@@ -51,7 +49,7 @@ public class Enemy : MonoBehaviour
             {
                 _firstTargetMove = false;
                 _secondTargetMove = true;
-            } 
+            }
         }
         else if (_secondTargetMove && _secondTarget != null)
         {
@@ -69,13 +67,50 @@ public class Enemy : MonoBehaviour
                 _startTatgetMove = true;
             }
         }
+        if (pastPosition.y > transform.position.y)
+        {
+            _animator.SetBool("movefront", true);
+            _animator.SetBool("moveback", false);
+            _animator.SetBool("moveleft", false);
+            _animator.SetBool("moveright", false);
+        }
+        else if (pastPosition.y < transform.position.y)
+        {
+            _animator.SetBool("movefront", false);
+            _animator.SetBool("moveback", true);
+            _animator.SetBool("moveleft", false);
+            _animator.SetBool("moveright", false);
+        }
+        else if (pastPosition.x > transform.position.x)
+        {
+            _animator.SetBool("movefront", false);
+            _animator.SetBool("moveback", false);
+            _animator.SetBool("moveleft", true);
+            _animator.SetBool("moveright", false);
+        }
+        else if (pastPosition.x < transform.position.x)
+        {
+            _animator.SetBool("movefront", false);
+            _animator.SetBool("moveback", false);
+            _animator.SetBool("moveleft", false);
+            _animator.SetBool("moveright", true);
+        }
+
+    }
+
+    private void FixedUpdate()
+    {
+        
+        
+
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.gameObject.CompareTag("Shockwave"))
         {
-            GameManager.instance.AddScore(10000);
+            GameManager.instance.AddScore(100);
             Destroy(this.gameObject);
         }
         if (collider.CompareTag("Player"))
