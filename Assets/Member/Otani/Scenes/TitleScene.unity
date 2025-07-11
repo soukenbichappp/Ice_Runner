@@ -379,7 +379,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 452278443}
         m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
         m_MethodName: LoadRankingScene
         m_Mode: 1
@@ -763,6 +763,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1023391420162735252, guid: 7dfc1ca42803c694eb8938d491e91740, type: 3}
+      propertyPath: _rankingScene
+      value: ResultScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023391420162735252, guid: 7dfc1ca42803c694eb8938d491e91740, type: 3}
+      propertyPath: _rankingSceneAsset
+      value: 
+      objectReference: {fileID: 102900000, guid: 262839f912092ae4fa52ab2d203e2150, type: 3}
     - target: {fileID: 5613216997577044651, guid: 7dfc1ca42803c694eb8938d491e91740, type: 3}
       propertyPath: m_Name
       value: SceneLoader

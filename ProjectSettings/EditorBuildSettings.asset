@@ -11,24 +11,25 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Member/Otani/Scenes/TitleScene.unity
     guid: 213cbcc05c587984f9a1c479963ff4f7
-  - enabled: 1
+  - enabled: 0
     path: Assets/Member/Otake/Scene/PlayerTest.unity
     guid: 8e9dccf0126459d4bb2b1b58aa66b80e
   - enabled: 1
     path: Assets/Member/Otani/Scenes/ResultScene.unity
     guid: 262839f912092ae4fa52ab2d203e2150
-  - enabled: 1
+  - enabled: 0
     path: Assets/Member/Otake/Scene/Title.unity
     guid: c3bb9b67e1b4504409eb378c46af1702
-  - enabled: 1
+  - enabled: 0
     path: Assets/Member/Otake/Scene/GameScene.unity
     guid: baa8d5138d651c0469d588be8aea7bfa
-  - enabled: 1
+  - enabled: 0
     path: Assets/Member/Otake/Scene/Result.unity
     guid: 09ef52da036b0c242b410931bbe16b5f
-  - enabled: 1
+  - enabled: 0
     path: Assets/Member/Otake/Scene/OtaniCopyScene.unity
     guid: 7aa42c79910836f45b5402f055142126
+  - enabled: 1
     path: Assets/Member/Otani/Scenes/OotaniGameScene.unity
     guid: 2a0e727b20e37bd45a3d4d1d499b6d49
   m_configObjects: {}

@@ -56,8 +56,6 @@ public class GameManager : MonoBehaviour
                 }
                 _ranking[i] = _score;
                 _ranking[0] = 0;
-                Debug.Log(_ranking.Count);
-                Debug.Log(_ranking[i]);
                 break;
             }
         }
