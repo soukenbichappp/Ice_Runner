@@ -10,16 +10,19 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] private string _rankingScene;
     [SerializeField] private string _resultScene;
     [SerializeField] private string _titleScene;
+    [SerializeField] private string _settingScene;
 
 #if UNITY_EDITOR
-    [SerializeField, Header("ゲームシーン選択")] private SceneAsset _gameSceneAsset;
-    [SerializeField, Header("ランキングシーン選択")] private SceneAsset _rankingSceneAsset;
-    [SerializeField, Header("リザルトシーン選択")] private SceneAsset _resultSceneAsset;
-    [SerializeField, Header("タイトルシーン選択")] private SceneAsset _titleSceneAsset;
+    [SerializeField, Header("ゲームシーン")] private SceneAsset _gameSceneAsset;
+    [SerializeField, Header("ランキングシーン")] private SceneAsset _rankingSceneAsset;
+    [SerializeField, Header("リザルトシーン")] private SceneAsset _resultSceneAsset;
+    [SerializeField, Header("タイトルシーン")] private SceneAsset _titleSceneAsset;
+    [SerializeField, Header("設定シーン")] private SceneAsset _settingSceneAsset;
 #endif
     public void LoadGameScene()
     {
         GameManager.instance.SetObject();
+        SoundManager.instance.SetBGM(2);
         SceneManager.LoadScene(_gameScene);
     }
 
@@ -31,12 +34,19 @@ public class SceneLoader : MonoBehaviour
     public void LoadResultScene()
     {
         GameManager.instance.ScoreJudge();
+        SoundManager.instance.SetBGM(3);
         SceneManager.LoadScene(_resultScene);
     }
 
     public void LoadTitleScene()
     {
+        SoundManager.instance.SetBGM(1);
         SceneManager.LoadScene(_titleScene);
+    }
+
+    public void LoadSettingScene()
+    {
+        SceneManager.LoadScene(_settingScene);
     }
 
 #if UNITY_EDITOR
@@ -76,6 +86,15 @@ public class SceneLoader : MonoBehaviour
         else
         {
             _titleScene = "";
+        }
+
+        if (_settingSceneAsset != null)
+        {
+            _settingScene = _settingSceneAsset.name;
+        }
+        else
+        {
+            _settingScene = "";
         }
     }
 #endif

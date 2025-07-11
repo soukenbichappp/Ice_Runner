@@ -114,8 +114,8 @@ public class Enemy : MonoBehaviour
             Destroy(this.gameObject);
         }
         if (collider.CompareTag("Player"))
-        {           
-            _sceneLoader.LoadResultScene();
+        {
+            _sceneLoader.Invoke("LoadResultScene", 1.9f);
         }
     }
 
