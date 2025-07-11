@@ -196,7 +196,7 @@ public class PlayerMover : MonoBehaviour
     {
         speed = 0;
         yield return new WaitForSeconds(0.4f);
-        speed = 1.5f;
+        speed = 3.0f;
     }
 
     private void UpdateDirection(Vector2 direction)

@@ -29,4 +29,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Member/Otake/Scene/OtaniCopyScene.unity
     guid: 7aa42c79910836f45b5402f055142126
+    path: Assets/Member/Otani/Scenes/OotaniGameScene.unity
+    guid: 2a0e727b20e37bd45a3d4d1d499b6d49
   m_configObjects: {}
