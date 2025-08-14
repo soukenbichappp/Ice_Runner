@@ -40,6 +40,7 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadTitleScene()
     {
+        GameManager.instance.SetObject();
         SoundManager.instance.SetBGM(1);
         SceneManager.LoadScene(_titleScene);
     }
