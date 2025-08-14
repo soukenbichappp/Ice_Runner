@@ -21,13 +21,20 @@ public class RankingManager : MonoBehaviour
         _rankingTexts[0].text = $"５位：{GameManager._ranking[1]}\n";
 
         _nowScoreText.text = $"スコア：{GameManager._score}";
+
+        foreach (var rankingText in _rankingTexts)
+        {
+            rankingText.color = Color.white;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(GameManager.i != 0)
+        
+        if(GameManager.i != 0 && GameManager._score != 0)
         {
+            _rankingTexts[GameManager.i - 1].color = Color.yellow;
             _time += Time.deltaTime;
             float repeatValue = Mathf.Repeat((float)_time, _cycle);
             _rankingTexts[GameManager.i - 1].enabled = repeatValue >= _cycle * 0.5f;
