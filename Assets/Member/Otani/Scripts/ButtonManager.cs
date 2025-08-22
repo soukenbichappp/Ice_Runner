@@ -12,27 +12,27 @@ public class ButtonManager : MonoBehaviour
 
     private void Update()
     {
-        //if(SoundManager.instance._bgmAudioSource.mute == true)
-        //{
-        //    _bGMOffButton.SetActive(false);
-        //    _bGMOnButton.SetActive(true);
-        //}
-        //else if (SoundManager.instance._bgmAudioSource.mute == false)
-        //{
-        //    _bGMOffButton.SetActive(true);
-        //    _bGMOnButton.SetActive(false);
-        //}
-        //
-        //if(GameManager.instance.screenshakingeffect == true)
-        //{
-        //    _effectOnButton.SetActive(false);
-        //    _effectOffButton.SetActive(true);
-        //}
-        //else if (GameManager.instance.screenshakingeffect == false)
-        //{
-        //    _effectOnButton.SetActive(true);
-        //    _effectOffButton.SetActive(false);
-        //}
+        if(SoundManager.instance._bgmAudioSource.mute == false)
+        {
+            _bGMOnButton.SetActive(true);
+            _bGMOffButton.SetActive(false);
+        }
+        else if (SoundManager.instance._bgmAudioSource.mute == true)
+        {
+            _bGMOnButton.SetActive(false);
+            _bGMOffButton.SetActive(true);
+        }
+        
+        if(GameManager.instance.screenshakingeffect == true)
+        {
+            _effectOnButton.SetActive(true);
+            _effectOffButton.SetActive(false);
+        }
+        else if (GameManager.instance.screenshakingeffect == false)
+        {
+            _effectOnButton.SetActive(false);
+            _effectOffButton.SetActive(true);
+        }
     }
 
     public void SetBGMVolumeOn()
