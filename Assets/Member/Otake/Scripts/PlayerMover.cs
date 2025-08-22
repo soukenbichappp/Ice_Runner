@@ -138,8 +138,12 @@ public class PlayerMover : MonoBehaviour
                 {
                     shockWave.SetActive(true);
                     Debug.Log("Atack!");
-                    var impulseSouse = GetComponent<CinemachineImpulseSource>();
-                    impulseSouse.GenerateImpulse();
+                    if (GameManager.instance.screenshakingeffect == true)
+                    {
+                        Debug.Log("On");
+                        var impulseSouse = GetComponent<CinemachineImpulseSource>();
+                        impulseSouse.GenerateImpulse();
+                    }
                     shockAudio.Play();
                     StartCoroutine("WaitTime");
                 }
