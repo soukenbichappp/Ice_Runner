@@ -35,7 +35,7 @@ public class PlayerMover : MonoBehaviour
     private Rigidbody2D rb;
     private bool deathflag = false;
     private bool shockflag = true;
-    private float speed = 1.5f;
+    private float speed = 2.0886f;
     private Vector2 _direction;
     private Vector2 _directionReserve;
     private Vector2 _way;
@@ -149,10 +149,10 @@ public class PlayerMover : MonoBehaviour
                     {
                         shockmissAudio.Play();
                         shockflag = false;
-                        speed = 1.5f;
+                        speed = 2.0886f;
                     }
                 }
-                speed = 1.5f;
+                speed = 2.0886f;
                 shockflag = true;
                 Debug.Log("SpeedReset");
             }
@@ -196,7 +196,7 @@ public class PlayerMover : MonoBehaviour
     {
         speed = 0;
         yield return new WaitForSeconds(0.4f);
-        speed = 1.5f;
+        speed = 2.0886f;
     }
 
     private void UpdateDirection(Vector2 direction)
