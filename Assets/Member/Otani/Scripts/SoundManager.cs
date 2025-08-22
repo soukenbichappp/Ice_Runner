@@ -6,7 +6,7 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager instance;
 
-    [SerializeField] AudioSource _bgmAudioSource;
+    public AudioSource _bgmAudioSource;
     [SerializeField] AudioClip[] _audioClips;
 
     private void Awake()
@@ -20,16 +20,6 @@ public class SoundManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-    
-    public void SetBGMVolumeOn()
-    {
-        _bgmAudioSource.mute = false;
-    }
-
-    public void SetBGMVolumeOff()
-    {
-        _bgmAudioSource.mute = true;
     }
 
     /// <summary>
