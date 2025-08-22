@@ -10,11 +10,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _scoreText;
     [SerializeField] private GameObject _pauseButton;
     [SerializeField] private GameObject _playBackButton;
+    
     public static List<float> _ranking = new List<float>(6) { 0, 0, 0, 0, 0, 0};
-    private float _thisScore;
     public static GameManager instance = null;
     public static int _score = 0;
     public static int i;
+    public bool screenshakingeffect = true;
 
     private void Awake()
     {
@@ -36,13 +37,6 @@ public class GameManager : MonoBehaviour
         SetObject();
         _pauseButton.SetActive(true);
         _playBackButton.SetActive(false);
-        Debug.Log(_ranking.Count);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void ScoreJudge()
@@ -62,9 +56,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void OpenSetting()
+    public void SetEffectOn()
     {
+        screenshakingeffect = true;
+    }
 
+    public void SetEffectOff()
+    {
+        screenshakingeffect = false;
     }
 
     public void SetObject()

@@ -22,9 +22,14 @@ public class SoundManager : MonoBehaviour
         }
     }
     
-    public void SetBGMVolume(float volume)
+    public void SetBGMVolumeOn()
     {
-        _bgmAudioSource.volume = volume;
+        _bgmAudioSource.mute = false;
+    }
+
+    public void SetBGMVolumeOff()
+    {
+        _bgmAudioSource.mute = true;
     }
 
     /// <summary>
