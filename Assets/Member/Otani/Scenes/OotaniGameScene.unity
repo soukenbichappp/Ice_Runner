@@ -985,6 +985,9 @@ MonoBehaviour:
   - {fileID: 6839811126119898696, guid: b7cdc2468f961cb48adbd531f54d6171, type: 3}
   - {fileID: 4468092683651076874, guid: ca31456e6c198ab4a9a1820dff9f7f92, type: 3}
   - {fileID: 5163447673306719881, guid: 7aeecc6deffc8a94da044fbc623903e1, type: 3}
+  - {fileID: 5036932427628931238, guid: bbfaa02a9a5e78849afad2c0b0116cbb, type: 3}
+  - {fileID: 2370060659792121406, guid: 9e39717b5c75960489f01650f0c69fe4, type: 3}
+  - {fileID: 3905766970439252431, guid: fe78763e1a16a5d4e895b20781b9e35d, type: 3}
   _startTipIndex: 1
   _preInstantiate: 3
   generatedStageList:
