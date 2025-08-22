@@ -30,7 +30,6 @@ public class MapGenerator : MonoBehaviour
         {
             UpdateStage(_charPositionIndex + _preInstantiate);
         }
-        Debug.Log(GameManager.instance.screenshakingeffect);
     }
 
     private void UpdateStage(int toTipIndex)
