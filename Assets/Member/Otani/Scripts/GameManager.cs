@@ -56,16 +56,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void SetEffectOn()
-    {
-        screenshakingeffect = true;
-    }
-
-    public void SetEffectOff()
-    {
-        screenshakingeffect = false;
-    }
-
     public void SetObject()
     {
         _score = 0;
