@@ -14,13 +14,13 @@ public class RankingManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _rankingTexts[4].text = $"１位：{GameManager._ranking[5]}\n";
-        _rankingTexts[3].text = $"２位：{GameManager._ranking[4]}\n";
-        _rankingTexts[2].text = $"３位：{GameManager._ranking[3]}\n";
-        _rankingTexts[1].text = $"４位：{GameManager._ranking[2]}\n";
-        _rankingTexts[0].text = $"５位：{GameManager._ranking[1]}\n";
+        _rankingTexts[4].text = $"1st : {GameManager._ranking[5]}\n";
+        _rankingTexts[3].text = $"2nd : {GameManager._ranking[4]}\n";
+        _rankingTexts[2].text = $"3rd : {GameManager._ranking[3]}\n";
+        _rankingTexts[1].text = $"4th : {GameManager._ranking[2]}\n";
+        _rankingTexts[0].text = $"5th : {GameManager._ranking[1]}\n";
 
-        _nowScoreText.text = $"スコア：{GameManager._score}";
+        _nowScoreText.text = $"Score : {GameManager._score}";
 
         foreach (var rankingText in _rankingTexts)
         {

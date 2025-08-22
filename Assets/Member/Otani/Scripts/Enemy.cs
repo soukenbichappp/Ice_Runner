@@ -30,87 +30,86 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 pastPosition = transform.position;
-        if (_startTatgetMove)
+        if(_startTarget != null)
         {
-            transform.position = Vector3.MoveTowards(transform.position, _startTarget.position, _enemySpeed * Time.deltaTime);
-            if (transform.position == _startTarget.position)
+            Vector3 pastPosition = transform.position;
+            if (_startTatgetMove)
             {
-                _startTatgetMove = false;
-                _firstTargetMove = true;
+                transform.position = Vector3.MoveTowards(transform.position, _startTarget.position, _enemySpeed * Time.deltaTime);
+                if (transform.position == _startTarget.position)
+                {
+                    _startTatgetMove = false;
+                    _firstTargetMove = true;
+                }
             }
-        }
-        else if (_firstTargetMove && _firstTarget != null)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, _firstTarget.position, _enemySpeed * Time.deltaTime);
-            if (transform.position == _firstTarget.position)
+            else if (_firstTargetMove && _firstTarget != null)
             {
-                _firstTargetMove = false;
-                _secondTargetMove = true;
+                transform.position = Vector3.MoveTowards(transform.position, _firstTarget.position, _enemySpeed * Time.deltaTime);
+                if (transform.position == _firstTarget.position)
+                {
+                    _firstTargetMove = false;
+                    _secondTargetMove = true;
+                }
             }
-        }
-        else if (_secondTargetMove && _secondTarget != null)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, _secondTarget.position, _enemySpeed * Time.deltaTime);
-            if (transform.position == _secondTarget.position)
+            else if (_secondTargetMove && _secondTarget != null)
             {
-                _secondTargetMove = false;
+                transform.position = Vector3.MoveTowards(transform.position, _secondTarget.position, _enemySpeed * Time.deltaTime);
+                if (transform.position == _secondTarget.position)
+                {
+                    _secondTargetMove = false;
+                }
             }
-        }
-        else
-        {
-            transform.position = Vector3.MoveTowards(transform.position, _endTarget.position, _enemySpeed * Time.deltaTime);
-            if (transform.position == _endTarget.position)
+            else
             {
-                _startTatgetMove = true;
+                transform.position = Vector3.MoveTowards(transform.position, _endTarget.position, _enemySpeed * Time.deltaTime);
+                if (transform.position == _endTarget.position)
+                {
+                    _startTatgetMove = true;
+                }
             }
-        }
-        if (pastPosition.y > transform.position.y)
-        {
-            _animator.SetBool("movefront", true);
-            _animator.SetBool("moveback", false);
-            _animator.SetBool("moveleft", false);
-            _animator.SetBool("moveright", false);
-        }
-        else if (pastPosition.y < transform.position.y)
-        {
-            _animator.SetBool("movefront", false);
-            _animator.SetBool("moveback", true);
-            _animator.SetBool("moveleft", false);
-            _animator.SetBool("moveright", false);
-        }
-        else if (pastPosition.x > transform.position.x)
-        {
-            _animator.SetBool("movefront", false);
-            _animator.SetBool("moveback", false);
-            _animator.SetBool("moveleft", true);
-            _animator.SetBool("moveright", false);
-        }
-        else if (pastPosition.x < transform.position.x)
-        {
-            _animator.SetBool("movefront", false);
-            _animator.SetBool("moveback", false);
-            _animator.SetBool("moveleft", false);
-            _animator.SetBool("moveright", true);
+            if (pastPosition.y > transform.position.y)
+            {
+                _animator.SetBool("movefront", true);
+                _animator.SetBool("moveback", false);
+                _animator.SetBool("moveleft", false);
+                _animator.SetBool("moveright", false);
+            }
+            else if (pastPosition.y < transform.position.y)
+            {
+                _animator.SetBool("movefront", false);
+                _animator.SetBool("moveback", true);
+                _animator.SetBool("moveleft", false);
+                _animator.SetBool("moveright", false);
+            }
+            else if (pastPosition.x > transform.position.x)
+            {
+                _animator.SetBool("movefront", false);
+                _animator.SetBool("moveback", false);
+                _animator.SetBool("moveleft", true);
+                _animator.SetBool("moveright", false);
+            }
+            else if (pastPosition.x < transform.position.x)
+            {
+                _animator.SetBool("movefront", false);
+                _animator.SetBool("moveback", false);
+                _animator.SetBool("moveleft", false);
+                _animator.SetBool("moveright", true);
+            }
         }
 
-    }
-
-    private void FixedUpdate()
-    {
-        
-        
-
-        
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.CompareTag("Shockwave"))
+        if(_startTarget != null)
         {
-            GameManager.instance.AddScore(100);
-            Destroy(this.gameObject);
+            if (collider.gameObject.CompareTag("Shockwave"))
+            {
+                GameManager.instance.AddScore(100);
+                Destroy(this.gameObject);
+            }
         }
+
         if (collider.CompareTag("Player"))
         {
             _sceneLoader.Invoke("LoadResultScene", 1.9f);
