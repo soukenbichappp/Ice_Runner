@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     private float _thisScore;
     public static GameManager instance = null;
     public static int _score = 0;
+    public static int i;
 
     private void Awake()
     {
@@ -46,7 +47,7 @@ public class GameManager : MonoBehaviour
 
     public void ScoreJudge()
     {
-        for (int i = 5;  i < _ranking.Count; i--)
+        for (i = 5;  i < _ranking.Count; i--)
         {
             if (_ranking[i] < _score)
             {

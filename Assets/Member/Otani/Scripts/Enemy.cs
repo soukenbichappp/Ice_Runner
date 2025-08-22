@@ -15,7 +15,6 @@ public class Enemy : MonoBehaviour
     private bool _startTatgetMove;
     private bool _firstTargetMove;
     private bool _secondTargetMove;
-    private bool _endTargetMove;
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +23,6 @@ public class Enemy : MonoBehaviour
         _startTatgetMove = false;
         _firstTargetMove = true;
         _secondTargetMove = false;
-        _endTargetMove = false;
         _animator = GetComponent<Animator>();
         _animator.SetBool("movefront", true);
     }
