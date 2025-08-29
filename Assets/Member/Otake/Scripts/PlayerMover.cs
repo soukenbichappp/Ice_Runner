@@ -55,16 +55,16 @@ public class PlayerMover : MonoBehaviour
     {
         if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
         {
-            //?��?��?��A?��E
+            //横
             _directionReserve.x = Input.GetAxisRaw("Horizontal");
-            //?��?��A?��?��
+            //縦
             _directionReserve.y = Input.GetAxisRaw("Vertical");
         }
         if (_directionReserve != Vector2.zero)
         {
             CheckDirection(_directionReserve);
         }
-        //?��Ռ�?��g?��͈̔͂𑬓x?��ɉ�?��?��?��Ċg?��?��
+        //
         //attackCircle.localScale = Vector3.one * (1.0f + speed / 10.0f);
         Vector2 dist = _direction * speed * Time.fixedDeltaTime;
         rb.MovePosition(rb.position + dist);
@@ -198,6 +198,7 @@ public class PlayerMover : MonoBehaviour
     }
     IEnumerator ShockCool()
     {
+        //速度リセット
         speed = 0;
         yield return new WaitForSeconds(0.4f);
         speed = 1.77f;
