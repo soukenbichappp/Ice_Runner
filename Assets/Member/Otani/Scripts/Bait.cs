@@ -20,12 +20,12 @@ public class Bait : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // ƒvƒŒƒCƒ„[‚É“–‚½‚Á‚½‚Ìˆ—
+        // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½É“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½
         if (collision.CompareTag("Player"))
         {
-            // ƒXƒRƒA‚ğ‰ÁZ‚·‚é
+            // ï¿½Xï¿½Rï¿½Aï¿½ï¿½ï¿½ï¿½Zï¿½ï¿½ï¿½ï¿½
             GameManager.instance.AddScore(10);
-            // ©g‚ğÁ‚·
+            // ï¿½ï¿½ï¿½gï¿½ï¿½ï¿½ï¿½ï¿½
             Destroy(this.gameObject);
         }
     }

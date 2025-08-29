@@ -7,14 +7,15 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private SceneLoader _sceneLoader;
     [SerializeField] private float _enemySpeed;
-    [SerializeField, Header("最初の位置")] private Transform _startTarget;
-    [SerializeField, Header("２つめの位置")] private Transform _firstTarget;
-    [SerializeField, Header("３つめの位置")] private Transform _secondTarget;
-    [SerializeField, Header("最後の位置")] private Transform _endTarget;
+    [SerializeField, Header("最初に移動する位置")] private Transform _startTarget;
+    [SerializeField, Header("２番目に移動する位置")] private Transform _firstTarget;
+    [SerializeField, Header("３番目に移動する位置")] private Transform _secondTarget;
+    [SerializeField, Header("最後に移動する位置")] private Transform _endTarget;
     private Animator _animator;
     private bool _startTatgetMove;
     private bool _firstTargetMove;
     private bool _secondTargetMove;
+    private const int EnemyScore = 100;  
 
     // Start is called before the first frame update
     void Start()
@@ -99,17 +100,24 @@ public class Enemy : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Enemyが触れた時の処理
+    /// </summary>
+    /// <param name="collider"></param>
     private void OnTriggerEnter2D(Collider2D collider)
     {
+        
         if(_startTarget != null)
         {
+            //　衝撃波に触れたらスコアを加算して消滅する
             if (collider.gameObject.CompareTag("Shockwave"))
             {
-                GameManager.instance.AddScore(100);
+                GameManager.instance.AddScore(EnemyScore);
                 Destroy(this.gameObject);
             }
         }
 
+        //　プレイヤーと触れたらリザルトへ移動
         if (collider.CompareTag("Player"))
         {
             _sceneLoader.Invoke("LoadResultScene", 1.9f);

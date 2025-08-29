@@ -25,7 +25,7 @@ public class SoundManager : MonoBehaviour
     /// <summary>
     /// 配列で取得したBGMの番号を受け取って再生する
     /// </summary>
-    /// <param name="BGMNumber"></param>
+    /// <param name="BGMNumber">再生したいBGMのNumber</param>
     public void SetBGM(int BGMNumber)
     {
         _bgmAudioSource.clip = _audioClips[BGMNumber - 1];
