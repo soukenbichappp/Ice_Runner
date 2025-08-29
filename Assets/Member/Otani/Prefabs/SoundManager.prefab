@@ -143,6 +143,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bgmAudioSource: {fileID: 613596122014748266}
   _audioClips:
-  - {fileID: 8300000, guid: fa475d21baa64df4faf4eb3d82757bab, type: 3}
-  - {fileID: 8300000, guid: d168350b428ed134982398efb1db7692, type: 3}
-  - {fileID: 8300000, guid: fb84fd6ade911bf43a4310a8e1a1487f, type: 3}
+  - {fileID: 8300000, guid: 421a98cac72e4c04fa824501ea09c54b, type: 3}
+  - {fileID: 8300000, guid: 62439eb5b2c607146b014a72d719b7b9, type: 3}
+  - {fileID: 8300000, guid: 61feae4faa99e3c42946d4200a47917d, type: 3}
