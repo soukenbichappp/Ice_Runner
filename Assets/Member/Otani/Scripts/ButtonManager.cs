@@ -23,12 +23,12 @@ public class ButtonManager : MonoBehaviour
             _bGMOffButton.SetActive(true);
         }
         
-        if(GameManager.instance.screenshakingeffect == true)
+        if(GameManager.instance.screenShakingEffect == true)
         {
             _effectOnButton.SetActive(true);
             _effectOffButton.SetActive(false);
         }
-        else if (GameManager.instance.screenshakingeffect == false)
+        else if (GameManager.instance.screenShakingEffect == false)
         {
             _effectOnButton.SetActive(false);
             _effectOffButton.SetActive(true);
@@ -46,12 +46,12 @@ public class ButtonManager : MonoBehaviour
     }
     public void SetEffectOn()
     {
-        GameManager.instance.screenshakingeffect = true;
+        GameManager.instance.screenShakingEffect = true;
     }
 
     public void SetEffectOff()
     {
-        GameManager.instance.screenshakingeffect = false;
+        GameManager.instance.screenShakingEffect = false;
     }
 
 

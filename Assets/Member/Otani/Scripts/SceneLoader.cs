@@ -21,18 +21,15 @@ public class SceneLoader : MonoBehaviour
 #endif
     public void LoadGameScene()
     {
+        //　GameSceneを読み込むときの処理
         GameManager.instance.SetObject();
         SoundManager.instance.SetBGM(2);
         SceneManager.LoadScene(_gameScene);
     }
 
-    public void LoadRankingScene()
-    {
-        SceneManager.LoadScene(_rankingScene);
-    }
-
     public void LoadResultScene()
     {
+        //　ResultSceneを読み込むときの処理
         GameManager.instance.ScoreJudge();
         SoundManager.instance.SetBGM(3);
         SceneManager.LoadScene(_resultScene);
@@ -40,6 +37,7 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadTitleScene()
     {
+        //　TitleSceneを読み込むときの処理
         GameManager.instance.SetObject();
         SoundManager.instance.SetBGM(1);
         SceneManager.LoadScene(_titleScene);
@@ -47,6 +45,7 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadSettingScene()
     {
+        //　SettingSceneを読み込むときの処理
         SceneManager.LoadScene(_settingScene);
     }
 

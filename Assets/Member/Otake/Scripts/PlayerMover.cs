@@ -138,7 +138,7 @@ public class PlayerMover : MonoBehaviour
                 {
                     shockWave.SetActive(true);
                     Debug.Log("Atack!");
-                    if (GameManager.instance.screenshakingeffect == true)
+                    if (GameManager.instance.screenShakingEffect == true)
                     {
                         Debug.Log("On");
                         var impulseSouse = GetComponent<CinemachineImpulseSource>();

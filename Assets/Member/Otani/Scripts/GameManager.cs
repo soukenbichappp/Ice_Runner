@@ -6,7 +6,6 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    //[SerializeField] Player player; �v���C���[������������ǉ�
     [SerializeField] private TextMeshProUGUI _scoreText;
     [SerializeField] private GameObject _pauseButton;
     [SerializeField] private GameObject _playBackButton;
@@ -15,11 +14,11 @@ public class GameManager : MonoBehaviour
     public static GameManager instance = null;
     public static int _score = 0;
     public static int i;
-    public bool screenshakingeffect = true;
+    public bool screenShakingEffect = true;
 
     private void Awake()
     {
-        // �V���O���g��
+        // シングルトン
         if (instance == null)
         {
             instance = this;
@@ -39,6 +38,9 @@ public class GameManager : MonoBehaviour
         _playBackButton.SetActive(false);
     }
 
+    /// <summary>
+    /// ランキングとスコアを比較する
+    /// </summary>
     public void ScoreJudge()
     {
         for (i = 5;  i < _ranking.Count; i--)

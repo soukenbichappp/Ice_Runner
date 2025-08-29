@@ -80,6 +80,9 @@ public class MapGenerator : MonoBehaviour
         GenerateBlockEnemy();
     }
 
+    /// <summary>
+    /// 無敵Enemyの生成
+    /// </summary>
     private void GenerateBlockEnemy()
     {
         int generateBlockEnemyIndex = _charPositionIndex - 1;
