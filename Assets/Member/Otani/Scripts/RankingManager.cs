@@ -34,6 +34,7 @@ public class RankingManager : MonoBehaviour
         
         if(GameManager.i != 0 && GameManager._score != 0)
         {
+            //　ランキング入りしたスコアを点滅させる
             _rankingTexts[GameManager.i - 1].color = Color.yellow;
             _time += Time.deltaTime;
             float repeatValue = Mathf.Repeat((float)_time, _cycle);
