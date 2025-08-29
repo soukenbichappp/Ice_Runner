@@ -63,29 +63,28 @@ public class GameManager : MonoBehaviour
         _score = 0;
     }
 
+    /// <summary>
+    /// スコアを加算する
+    /// </summary>
+    /// <param name="_scoreAmount">加算するスコア量</param>
     public void AddScore(int _scoreAmount)
     {
-        // ���Z����X�R�A��擾���ĉ��Z
+        // _scoreAmountを_scoreに加算する
         _score += _scoreAmount;
         if(_scoreText == null)
         {
             _scoreText = GameObject.Find("Canvas/ScoreText").GetComponent<TextMeshProUGUI>();
         }
-        // �X�R�A�e�L�X�g��X�V
         _scoreText.text = $"Score : {_score}";
     }
 
     public void Pause()
     {
-        //_playBackButton.SetActive(true);
-        //_pauseButton.SetActive(false);
         Time.timeScale = 0;
     }
 
     public void PlayBack()
     {
-        //_pauseButton.SetActive(true);
-        //_playBackButton.SetActive(false);
         Time.timeScale = 1;
     }
 

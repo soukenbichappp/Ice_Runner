@@ -7,14 +7,12 @@ using UnityEngine.SceneManagement;
 public class SceneLoader : MonoBehaviour
 {
     [SerializeField] private string _gameScene;
-    [SerializeField] private string _rankingScene;
     [SerializeField] private string _resultScene;
     [SerializeField] private string _titleScene;
     [SerializeField] private string _settingScene;
 
 #if UNITY_EDITOR
     [SerializeField, Header("ゲームシーン")] private SceneAsset _gameSceneAsset;
-    [SerializeField, Header("ランキングシーン")] private SceneAsset _rankingSceneAsset;
     [SerializeField, Header("リザルトシーン")] private SceneAsset _resultSceneAsset;
     [SerializeField, Header("タイトルシーン")] private SceneAsset _titleSceneAsset;
     [SerializeField, Header("設定シーン")] private SceneAsset _settingSceneAsset;
@@ -59,15 +57,6 @@ public class SceneLoader : MonoBehaviour
         else
         {
             _gameScene = "";
-        }
-
-        if (_rankingSceneAsset != null)
-        {
-            _rankingScene = _rankingSceneAsset.name;
-        }
-        else
-        {
-            _rankingScene = "";
         }
 
         if (_resultSceneAsset != null)
