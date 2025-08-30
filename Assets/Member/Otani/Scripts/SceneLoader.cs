@@ -47,6 +47,12 @@ public class SceneLoader : MonoBehaviour
         SceneManager.LoadScene(_settingScene);
     }
 
+    public void LoadRunKingScene()
+    {
+        //　RunKingSceneを読み込むときの処理
+        SceneManager.LoadScene(_resultScene);
+    }
+
 #if UNITY_EDITOR
     private void OnValidate()
     {
