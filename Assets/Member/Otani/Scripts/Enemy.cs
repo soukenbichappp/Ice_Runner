@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
     private bool _startTatgetMove;
     private bool _firstTargetMove;
     private bool _secondTargetMove;
+    private bool _isDead;
     private const int EnemyScore = 100;  
 
     // Start is called before the first frame update
@@ -24,6 +25,7 @@ public class Enemy : MonoBehaviour
         _startTatgetMove = false;
         _firstTargetMove = true;
         _secondTargetMove = false;
+        _isDead = false;
         _animator = GetComponent<Animator>();
         _animator.SetBool("movefront", true);
     }
@@ -31,7 +33,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(_startTarget != null)
+        if(_startTarget != null && _isDead == false)
         {
             Vector3 pastPosition = transform.position;
             if (_startTatgetMove)
@@ -112,16 +114,25 @@ public class Enemy : MonoBehaviour
             //　衝撃波に触れたらスコアを加算して消滅する
             if (collider.gameObject.CompareTag("Shockwave"))
             {
+                _isDead = true;
                 GameManager.instance.AddScore(EnemyScore);
-                Destroy(this.gameObject);
+                gameObject.tag = new string("Untagged");
+                _animator.SetBool("isdead", true);
+                Invoke("DestroyThisObject", 0.4f);
+                
             }
         }
 
         //　プレイヤーと触れたらリザルトへ移動
-        if (collider.CompareTag("Player"))
+        if (collider.CompareTag("Player") && _isDead == false)
         {
             _sceneLoader.Invoke("LoadResultScene", 1.9f);
         }
+    }
+
+    void DestroyThisObject()
+    {
+        Destroy(gameObject);
     }
 
 }
