@@ -6,16 +6,19 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    //[SerializeField] Player player; ƒvƒŒƒCƒ„[‚ªŠ®¬‚µ‚½‚ç’Ç‰Á
+    //[SerializeField] Player player; ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç‰ï¿½
     [SerializeField] private TextMeshProUGUI _scoreText;
     [SerializeField] private GameObject _pauseButton;
     [SerializeField] private GameObject _playBackButton;
+    public static List<float> _ranking = new List<float>(6) { 0, 0, 0, 0, 0, 0};
+    private float _thisScore;
     public static GameManager instance = null;
     public static int _score = 0;
+    public static int i;
 
     private void Awake()
     {
-        // ƒVƒ“ƒOƒ‹ƒgƒ“
+        // ï¿½Vï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½gï¿½ï¿½
         if (instance == null)
         {
             instance = this;
@@ -33,23 +36,30 @@ public class GameManager : MonoBehaviour
         SetObject();
         _pauseButton.SetActive(true);
         _playBackButton.SetActive(false);
+        Debug.Log(_ranking.Count);
     }
 
     // Update is called once per frame
     void Update()
     {
-        //“G‚Æ“–‚½‚Á‚½‚Ìˆ—
-        //if (player.isHit == true)
-        //{
-        //    GameOver();
-        //}
+        
     }
 
-    void GameOver()
+    public void ScoreJudge()
     {
-        // GameOverˆ—
-        // GameOverƒAƒjƒ[ƒVƒ‡ƒ“‚ğ‚±‚±‚É“ü‚ê‚é
-        SceneManager.LoadScene("");
+        for (i = 5;  i < _ranking.Count; i--)
+        {
+            if (_ranking[i] < _score)
+            {
+                for (int j = 0; j < i; j++)
+                {
+                    _ranking[j] = _ranking[j + 1]; 
+                }
+                _ranking[i] = _score;
+                _ranking[0] = 0;
+                break;
+            }
+        }
     }
 
     public void OpenSetting()
@@ -64,13 +74,13 @@ public class GameManager : MonoBehaviour
 
     public void AddScore(int _scoreAmount)
     {
-        // ‰ÁZ‚·‚éƒXƒRƒA‚ğæ“¾‚µ‚Ä‰ÁZ
+        // ï¿½ï¿½ï¿½Zï¿½ï¿½ï¿½ï¿½Xï¿½Rï¿½Aï¿½ï¿½æ“¾ï¿½ï¿½ï¿½Ä‰ï¿½ï¿½Z
         _score += _scoreAmount;
         if(_scoreText == null)
         {
             _scoreText = GameObject.Find("Canvas/ScoreText").GetComponent<TextMeshProUGUI>();
         }
-        // ƒXƒRƒAƒeƒLƒXƒg‚ğXV
+        // ï¿½Xï¿½Rï¿½Aï¿½eï¿½Lï¿½Xï¿½gï¿½ï¿½Xï¿½V
         _scoreText.text = $"Score : {_score}";
     }
 

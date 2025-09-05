@@ -6,16 +6,101 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private SceneLoader _sceneLoader;
+    [SerializeField] private float _enemySpeed;
+    [SerializeField, Header("最初の位置")] private Transform _startTarget;
+    [SerializeField, Header("２つめの位置")] private Transform _firstTarget;
+    [SerializeField, Header("３つめの位置")] private Transform _secondTarget;
+    [SerializeField, Header("最後の位置")] private Transform _endTarget;
+    private Animator _animator;
+    private bool _startTatgetMove;
+    private bool _firstTargetMove;
+    private bool _secondTargetMove;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        // 初期化処理
+        _startTatgetMove = false;
+        _firstTargetMove = true;
+        _secondTargetMove = false;
+        _animator = GetComponent<Animator>();
+        _animator.SetBool("movefront", true);
     }
 
     // Update is called once per frame
     void Update()
     {
+        Vector3 pastPosition = transform.position;
+        if (_startTatgetMove)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, _startTarget.position, _enemySpeed * Time.deltaTime);
+            if (transform.position == _startTarget.position)
+            {
+                _startTatgetMove = false;
+                _firstTargetMove = true;
+            }
+        }
+        else if (_firstTargetMove && _firstTarget != null)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, _firstTarget.position, _enemySpeed * Time.deltaTime);
+            if (transform.position == _firstTarget.position)
+            {
+                _firstTargetMove = false;
+                _secondTargetMove = true;
+            }
+        }
+        else if (_secondTargetMove && _secondTarget != null)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, _secondTarget.position, _enemySpeed * Time.deltaTime);
+            if (transform.position == _secondTarget.position)
+            {
+                _secondTargetMove = false;
+            }
+        }
+        else
+        {
+            transform.position = Vector3.MoveTowards(transform.position, _endTarget.position, _enemySpeed * Time.deltaTime);
+            if (transform.position == _endTarget.position)
+            {
+                _startTatgetMove = true;
+            }
+        }
+        if (pastPosition.y > transform.position.y)
+        {
+            _animator.SetBool("movefront", true);
+            _animator.SetBool("moveback", false);
+            _animator.SetBool("moveleft", false);
+            _animator.SetBool("moveright", false);
+        }
+        else if (pastPosition.y < transform.position.y)
+        {
+            _animator.SetBool("movefront", false);
+            _animator.SetBool("moveback", true);
+            _animator.SetBool("moveleft", false);
+            _animator.SetBool("moveright", false);
+        }
+        else if (pastPosition.x > transform.position.x)
+        {
+            _animator.SetBool("movefront", false);
+            _animator.SetBool("moveback", false);
+            _animator.SetBool("moveleft", true);
+            _animator.SetBool("moveright", false);
+        }
+        else if (pastPosition.x < transform.position.x)
+        {
+            _animator.SetBool("movefront", false);
+            _animator.SetBool("moveback", false);
+            _animator.SetBool("moveleft", false);
+            _animator.SetBool("moveright", true);
+        }
+
+    }
+
+    private void FixedUpdate()
+    {
+        
+        
+
         
     }
 
@@ -23,11 +108,12 @@ public class Enemy : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("Shockwave"))
         {
+            GameManager.instance.AddScore(100);
             Destroy(this.gameObject);
         }
         if (collider.CompareTag("Player"))
         {
-            _sceneLoader.LoadResultScene();
+            _sceneLoader.Invoke("LoadResultScene", 1.9f);
         }
     }
 

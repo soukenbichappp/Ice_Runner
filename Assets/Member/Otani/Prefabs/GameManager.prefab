@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8f255847ac31f64b9bcf19833fcf357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scoreText: {fileID: 6426323419783207732, guid: c7faaeece80d7764c9aaca99744aee14, type: 3}
+  _scoreText: {fileID: 0}
   _pauseButton: {fileID: 1518419504381127329, guid: d4c7107f4406aa741b6eab1a6bdc288f, type: 3}
   _playBackButton: {fileID: 3789220537227676250, guid: d06507c0467bdf0458a9c2404a1054d2, type: 3}
