@@ -31,6 +31,7 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private GameObject _deathback;
     [SerializeField] private GameObject _deathright;
     [SerializeField] private GameObject _deathleft;
+    [SerializeField] private GameObject _misseffect;
     [SerializeField] private float _limitSpeed = 0.01f;
     private Rigidbody2D rb;
     private bool deathflag = false;
@@ -50,6 +51,7 @@ public class PlayerMover : MonoBehaviour
         _deathback.SetActive(false);
         _deathleft.SetActive(false);
         _deathright.SetActive(false);
+        _misseffect.SetActive(false);
     }
     private void FixedUpdate()
     {
@@ -152,6 +154,8 @@ public class PlayerMover : MonoBehaviour
                     if (shockflag == true)
                     {
                         shockmissAudio.Play();
+                        _misseffect.SetActive(true);
+                        StartCoroutine("MissTime");
                         shockflag = false;
                         speed = 1.77f;
                     }
@@ -170,6 +174,11 @@ public class PlayerMover : MonoBehaviour
         StartCoroutine("ShockCool");
         shockWave.SetActive(false);
         Debug.Log("End");
+    }
+    IEnumerator MissTime()
+    {
+        yield return new WaitForSeconds(0.5f);
+        _misseffect.SetActive(false);
     }
     private void CheckDirection(Vector2 direction)
     {
