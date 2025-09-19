@@ -6,6 +6,7 @@ public class TitleManager : MonoBehaviour
 {
     [SerializeField] private List<Behaviour> _iconList = new List<Behaviour>();
     [SerializeField] private float _cycle = 1;
+    [SerializeField] private SceneLoader _sceneLoader;
 
     private int _nowChooseIcon;
     private double _time;
@@ -20,7 +21,13 @@ public class TitleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _sceneLoader.LoadGameScene();
+        }
+
+
+        /*if (Input.GetKeyDown(KeyCode.D))
         {
             ResetColor(_iconList[_nowChooseIcon - 1]);
             if (_nowChooseIcon < _iconList.Count)
@@ -44,9 +51,9 @@ public class TitleManager : MonoBehaviour
             {
                 _nowChooseIcon = _iconList.Count;
             }
-        }
+        }*/
 
-        SetColor(_iconList[_nowChooseIcon - 1]);
+        //SetColor(_iconList[_nowChooseIcon - 1]);
     }
 
     /// <summary>
